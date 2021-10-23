@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.340625" />
+        <entry key="app/src/main/res/drawable/background_button_primery.xml" value="0.33125" />
+        <entry key="app/src/main/res/drawable/background_fill_primery.xml" value="0.33125" />
+        <entry key="app/src/main/res/drawable/background_outlined_primery.xml" value="0.33125" />
+        <entry key="app/src/main/res/drawable/background_white.xml" value="0.33125" />
+        <entry key="app/src/main/res/drawable/checkbox_trhee_options.xml" value="0.27807017543859647" />
+        <entry key="app/src/main/res/drawable/ic_calendar_today_24.xml" value="0.33125" />
+        <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.33125" />
+        <entry key="app/src/main/res/layout-w1240dp/activity_login.xml" value="0.20180722891566266" />
+        <entry key="app/src/main/res/layout-w1240dp/search_layout.xml" value="0.16666666666666666" />
+        <entry key="app/src/main/res/layout-w936dp/activity_login.xml" value="0.23394808743169399" />
+        <entry key="app/src/main/res/layout/activity_loading_app.xml" value="0.21739130434782608" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.2644736842105263" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.3048780487804878" />
+        <entry key="app/src/main/res/layout/reserva_layout.xml" value="0.25263157894736843" />
+        <entry key="app/src/main/res/layout/sample_my_view.xml" value="0.25263157894736843" />
+        <entry key="app/src/main/res/layout/search_layout.xml" value="0.4701857282502444" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.27807017543859647" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.33125" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.21739130434782608" />
+      </ProjectState>
+    </option>
+  </component>
+</project>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pasajeros">Passangers</string>
+    <string name="resultado">Results</string>
+    <string name="returnn">Return</string>
+    <string name="notresults">No result found</string>
+    <string name="add_button">Add button</string>
+    <string name="rest_button">Rest button</string>
+    <string name="book_flights">Book Flights</string>
+    <string name="roundtrip">Roundtrip</string>
+    <string name="one_way">One way</string>
+    <string name="history">History</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="depart">Depart</string>
+    <string name="maximum_numbre_of_stops">Maximum number of stops</string>
+    <string name="non_stop">Non stop</string>
+    <string name="one_stop">One stop</string>
+    <string name="_2_or_more">2 or more</string>
+    <string name="search_flights">Search Flights</string>
+</resources>

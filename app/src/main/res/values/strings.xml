@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name" translatable="false">BookFlight</string>
+    <string name="book_flights">Book Flights</string>
+    <string name="roundtrip">Roundtrip</string>
+    <string name="one_way">One way</string>
+    <string name="history">History</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="depart">Depart</string>
+    <string name="pasajeros">Pasajeros</string>
+    <string name="maximum_numbre_of_stops">Maximum numbre of stops</string>
+    <string name="non_stop">Non stop</string>
+    <string name="one_stop">One stop</string>
+    <string name="_2_or_more">2 or more</string>
+    <string name="search_flights">Search Flights</string>
+    <string name="resultado">Resultado</string>
+    <string name="euismod_nunc_in_sit_ipsum_laoreet_amet_odio_nec_a_vel_sit_condimentum_condimentum_enim_a_atlorem_dolor_est_elit_in_dolor_amet_nec_libero_curabitur_sagittis_libero_viverra_vitae_id_tincidunt_est_vitae_euismod_viverra_nullam_consectetur_adipiscing_nunc_auctor_libero_consectetur_adipiscing_libero_tincidunt_curabitur_sagittis_vel_enim_elit_at_auctor_id_id_id_laoreet_dolor_ipsum_odio_lorem_dolor_nullam" translatable="false">Euismod nunc in sit ipsum laoreet amet odio nec a vel sit condimentum condimentum enim a atlorem dolor est elit in dolor amet nec libero curabitur sagittis libero viverra vitae id tincidunt est vitae euismod viverra nullam consectetur adipiscing nunc auctor libero consectetur adipiscing libero tincidunt curabitur sagittis vel enim elit at auctor id id id laoreet dolor ipsum odio lorem dolor nullam \nEuismod nunc in sit ipsum laoreet amet odio nec a vel sit condimentum condimentum enim a atlorem dolor est elit in dolor amet nec libero curabitur sagittis libero viverra vitae id tincidunt est vitae euismod viverra nullam consectetur adipiscing nunc auctor libero consectetur adipiscing libero tincidunt curabitur sagittis vel enim elit at auctor id id id laoreet dolor ipsum odio lorem dolor nullam\nEuismod nunc in sit ipsum laoreet amet odio nec a vel sit condimentum condimentum enim a atlorem dolor est elit in dolor amet nec libero curabitur sagittis libero viverra vitae id tincidunt est vitae euismod viverra nullam consectetur adipiscing nunc auctor libero consectetur adipiscing libero tincidunt curabitur sagittis vel enim elit at auctor id id id laoreet dolor ipsum odio lorem dolor nullam</string>
+    <string name="cero" translatable="false">0</string>
+    <string name="returnn">Return</string>
+    <string name="notresults">No se ha realizado ninguna búsqueda</string>
+    <string name="xero" translatable="false">0</string>
+    <string name="add_button">Add button</string>
+    <string name="rest_button">Rest button</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="login">Iniciar sesión</string>
+    <string name="vuelo">Vuelo</string>
+</resources>

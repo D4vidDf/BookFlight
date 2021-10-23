@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="roundtrip">Ida y vuelta</string>
+    <string name="one_way">Ida</string>
+    <string name="history">Historial</string>
+    <string name="from">Desde</string>
+    <string name="to">Hacia</string>
+    <string name="depart">Salida</string>
+    <string name="pasajeros">Pasajeros</string>
+    <string name="maximum_numbre_of_stops">Número máximo de trasbordos</string>
+    <string name="non_stop">Ninguna</string>
+    <string name="one_stop">Una</string>
+    <string name="_2_or_more">2 o más</string>
+    <string name="search_flights">Buscar vuelos</string>
+    <string name="resultado">Resultado</string>
+    <string name="returnn">Vuelta</string>
+    <string name="notresults">No se ha realizado ninguna búsqueda</string>
+    <string name="add_button">Botón añadir</string>
+    <string name="rest_button">Botón restar</string>
+    <string name="book_flights">Comprar vuelos</string>
+</resources>
