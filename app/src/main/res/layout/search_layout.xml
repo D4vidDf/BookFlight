@@ -5,16 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    android:elevation="10dp"
+    android:elevation="24dp"
     app:cardCornerRadius="12dp">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp">
 
         <LinearLayout
+            android:id="@+id/inf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -82,13 +83,17 @@
         </LinearLayout>
 
         <Button
+
             android:id="@+id/reservar"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Reserver" />
-    </LinearLayout>
+            android:textColor="@color/design_default_color_primary"
+            android:text="Reservar"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/inf"/>
+    </RelativeLayout>
 
 
 </androidx.cardview.widget.CardView>
