@@ -21,15 +21,19 @@
     <string name="xero" translatable="false">0</string>
     <string name="add_button">Add button</string>
     <string name="rest_button">Rest button</string>
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_login" translatable="false">LoginActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
-    <string name="login">Iniciar sesión</string>
-    <string name="vuelo">Vuelo</string>
+    <string name="welcome" translatable="false">"Welcome !"</string>
+    <string name="invalid_username" translatable="false">Not a valid username</string>
+    <string name="invalid_password" translatable="false">Password must be >5 characters</string>
+    <string name="login_failed" translatable="false">"Login failed"</string>
+    <string name="login" translatable="false">Iniciar sesión</string>
+    <string name="vuelo" translatable="false">Vuelo</string>
+    <string name="title_activity_bottom" translatable="false">Bottom</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard" translatable="false">Dashboard</string>
+    <string name="title_notifications" translatable="false">Notifications</string>
 </resources>

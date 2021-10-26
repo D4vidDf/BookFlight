@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/design_default_color_primary_variant"
+    tools:context=".ui.home.HomeFragment">
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/days_one"
+        android:text="@string/book_flights"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="26sp" />
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:fadeScrollbars="true"
+        android:scrollIndicators="right"
+        android:scrollbarFadeDuration="5"
+        android:scrollbarSize="5dp"
+        android:scrollbarStyle="outsideOverlay">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/rel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="90dp"
+                android:layout_marginEnd="7dp"
+                android:background="@drawable/background_white"
+                android:scrollY="@dimen/cardview_compat_inset_shadow"
+                android:scrollbars="vertical">
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="fill"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:columnCount="3"
+                    android:orientation="horizontal"
+                    android:useDefaultMargins="true">
+
+                    <RadioGroup
+                        android:id="@+id/tipo"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_row="0"
+                        android:layout_rowWeight="1"
+                        android:layout_columnSpan="2"
+                        android:layout_columnWeight="2"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/round"
+                            android:layout_width="110dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="5dp"
+                            android:background="@drawable/checkbox_trhee_options"
+                            android:button="@drawable/checkbox_trhee_options"
+                            android:checked="true"
+                            android:text="@string/roundtrip"
+                            android:textAlignment="center"
+                            android:textColor="@color/design_default_color_primary_dark" />
+
+                        <RadioButton
+                            android:id="@+id/one"
+                            android:layout_width="110dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="2dp"
+                            android:background="@drawable/checkbox_trhee_options"
+                            android:button="@drawable/checkbox_trhee_options"
+                            android:text="@string/one_way"
+                            android:textAlignment="center"
+                            android:textColor="@color/design_default_color_primary_dark" />
+
+
+                    </RadioGroup>
+
+                    <Button
+                        android:id="@+id/history"
+                        android:layout_width="0dp"
+                        android:layout_row="0"
+                        android:layout_column="2"
+                        android:layout_columnWeight="1"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@drawable/background_button_primery"
+                        android:elevation="10dp"
+                        android:text="@string/history"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+
+
+                    //Details Text Input
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_row="1"
+                        android:layout_columnSpan="3"
+                        android:layout_columnWeight="0">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/from"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="90dp"
+                            android:hint="@string/from"
+                            android:imeOptions="actionNext"
+
+                            android:inputType="text"
+                            android:maxLines="1"
+                            tools:ignore="TextContrastCheck" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_row="2"
+                        android:layout_columnSpan="3"
+                        tools:ignore="NotSibling">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/to"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/to"
+                            android:imeOptions="actionNext"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            tools:ignore="TextContrastCheck" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                    //Date Box
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_row="4"
+                        android:layout_column="0"
+                        android:layout_columnWeight="1"
+                        android:layout_gravity="center_vertical">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/depart"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:drawableEnd="@drawable/ic_calendar_today_24"
+                            android:hint="@string/depart"
+                            android:imeOptions="actionNext"
+                            android:inputType="date"
+                            android:maxLines="1" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/ret"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_row="4"
+                        android:layout_column="1"
+                        android:layout_columnWeight="1"
+                        android:layout_gravity="center_vertical">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/returndate"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:drawableEnd="@drawable/ic_calendar_today_24"
+                            android:hint="@string/returnn"
+                            android:imeOptions="actionNext"
+                            android:inputType="date"
+                            android:maxLines="1" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <GridLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_row="4"
+                        android:layout_column="2"
+                        android:layout_columnWeight="1">
+
+                        <TextView
+
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_row="0"
+                            android:layout_rowWeight="1"
+                            android:layout_columnSpan="5"
+                            android:layout_columnWeight="5"
+                            android:text="@string/pasajeros"
+                            android:textAlignment="center" />
+
+                        <ImageView
+                            android:id="@+id/add"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_row="1"
+                            android:layout_column="4"
+                            android:layout_columnWeight="1"
+                            android:layout_gravity="center_vertical"
+                            android:background="@drawable/background_button_primery"
+                            android:contentDescription="@string/add_button"
+                            android:src="@drawable/add"
+                            app:tint="@color/white" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_row="1"
+                            android:layout_column="1"
+                            android:layout_columnSpan="3"
+                            android:layout_columnWeight="3"
+                            android:layout_gravity="center_vertical">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/pasajero"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:imeOptions="actionDone"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:text="@string/xero"
+                                android:textAlignment="center"
+                                tools:ignore="TextContrastCheck" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <ImageView
+                            android:id="@+id/remove"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_row="1"
+                            android:layout_column="0"
+                            android:layout_columnWeight="1"
+                            android:layout_gravity="center_vertical"
+                            android:background="@drawable/background_button_primery"
+                            android:contentDescription="@string/rest_button"
+                            android:src="@drawable/remove"
+                            app:tint="@color/white"
+                            tools:ignore="RedundantDescriptionCheck" />
+                    </GridLayout>
+
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_row="4"
+                        android:layout_columnSpan="3"
+                        android:text="@string/maximum_numbre_of_stops" />
+
+                    <RadioGroup
+                        android:id="@+id/paradas"
+                        android:layout_width="match_parent"
+                        android:layout_row="5"
+                        android:layout_columnSpan="3"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/nonstop"
+                            android:layout_width="110dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/checkbox_trhee_options"
+                            android:button="@drawable/checkbox_trhee_options"
+                            android:checked="true"
+                            android:text="@string/non_stop"
+                            android:textAlignment="center"
+                            android:textColor="@color/design_default_color_primary_dark" />
+
+                        <RadioButton
+                            android:id="@+id/onestop"
+                            android:layout_width="110dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/checkbox_trhee_options"
+                            android:button="@drawable/checkbox_trhee_options"
+                            android:text="@string/one_stop"
+                            android:textAlignment="center"
+                            android:textColor="@color/design_default_color_primary_dark" />
+
+                        <RadioButton
+                            android:id="@+id/more"
+                            android:layout_width="110dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/checkbox_trhee_options"
+                            android:button="@drawable/checkbox_trhee_options"
+                            android:text="@string/_2_or_more"
+                            android:textAlignment="center"
+                            android:textColor="@color/design_default_color_primary_dark" />
+                    </RadioGroup>
+
+                    <Button
+                        android:id="@+id/buscar"
+                        style="@style/Widget.MaterialComponents.Button"
+                        android:layout_width="match_parent"
+                        android:layout_row="6"
+                        android:layout_columnSpan="3"
+                        android:background="@drawable/background_outlined_primery"
+                        android:elevation="10dp"
+                        android:text="@string/search_flights"
+                        android:textColor="@color/white" />
+                </GridLayout>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tittleres"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rel"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="@font/days_one"
+                android:text="@string/history"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:visibility="invisible" />
+
+            <LinearLayout
+                android:id="@+id/layoutresultado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tittleres"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

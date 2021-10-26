@@ -18,4 +18,9 @@
     <string name="add_button">Botón añadir</string>
     <string name="rest_button">Botón restar</string>
     <string name="book_flights">Comprar vuelos</string>
+    <string name="prompt_email">Correo electrónico</string>
+    <string name="prompt_password">Contraseña</string>
+    <string name="action_sign_in">Iniciar sesión o resgistrarse</string>
+    <string name="action_sign_in_short">Iniciar sesión</string>
+    <string name="title_home">Inicio</string>
 </resources>

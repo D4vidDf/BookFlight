@@ -14,12 +14,16 @@
         <entry key="app/src/main/res/layout-w1240dp/activity_login.xml" value="0.20180722891566266" />
         <entry key="app/src/main/res/layout-w1240dp/search_layout.xml" value="0.16666666666666666" />
         <entry key="app/src/main/res/layout-w936dp/activity_login.xml" value="0.23394808743169399" />
+        <entry key="app/src/main/res/layout/activity_bottom.xml" value="0.21228070175438596" />
         <entry key="app/src/main/res/layout/activity_loading_app.xml" value="0.21739130434782608" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.2644736842105263" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3048780487804878" />
+        <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.21228070175438596" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="app/src/main/res/layout/reserva_layout.xml" value="0.25263157894736843" />
         <entry key="app/src/main/res/layout/sample_my_view.xml" value="0.25263157894736843" />
         <entry key="app/src/main/res/layout/search_layout.xml" value="0.335" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.1412280701754386" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.27807017543859647" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.33125" />
       </map>
