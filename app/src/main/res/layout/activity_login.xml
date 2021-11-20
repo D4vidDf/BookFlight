@@ -12,7 +12,7 @@
             android:layout_height="200dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="80dp"
-            android:tint="@color/design_default_color_primary"
+            android:tint="@color/material_on_surface_emphasis_medium"
             android:src="@drawable/ic_launcher_foreground"
             tools:ignore="UseAppTint" />
 
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/email"
                 android:layout_width="match_parent"
@@ -49,10 +49,10 @@
             android:layout_centerHorizontal="true"
             android:layout_width="310dp"
             app:passwordToggleEnabled="true"
-            app:passwordToggleTint="@color/design_default_color_primary"
+            app:passwordToggleTint="@color/md_theme_light_tertiary"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
@@ -72,9 +72,17 @@
             android:layout_below="@id/pam"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:strokeWidth="2dp"
-            app:strokeColor="@color/design_default_color_primary"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/Widget.Material3.Button.TonalButton"
             android:text="@string/login"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/register"
+        style="@style/Widget.Material3.Button.TextButton.Dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="@string/register" />
 
 </RelativeLayout>

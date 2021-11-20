@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/design_default_color_primary_variant"
+    style="@style/AppTheme"
     tools:context=".ui.home.HomeFragment">
 
     <TextView
@@ -15,9 +15,8 @@
         android:layout_marginTop="25dp"
         android:layout_marginEnd="10dp"
         android:fontFamily="@font/days_one"
-        android:text="@string/book_flights"
-        android:textAlignment="center"
-        android:textColor="@color/white"
+        android:text="@string/hello"
+        style="@style/MaterialAlertDialog.Material3.Title.Text"
         android:textSize="26sp" />
 
     <ScrollView
@@ -41,7 +40,6 @@
                 android:layout_marginStart="7dp"
                 android:layout_marginTop="90dp"
                 android:layout_marginEnd="7dp"
-                android:background="@drawable/background_white"
                 android:scrollY="@dimen/cardview_compat_inset_shadow"
                 android:scrollbars="vertical">
 
@@ -76,8 +74,7 @@
                             android:button="@drawable/checkbox_trhee_options"
                             android:checked="true"
                             android:text="@string/roundtrip"
-                            android:textAlignment="center"
-                            android:textColor="@color/design_default_color_primary_dark" />
+                            android:textAlignment="center" />
 
                         <RadioButton
                             android:id="@+id/one"
@@ -87,33 +84,26 @@
                             android:background="@drawable/checkbox_trhee_options"
                             android:button="@drawable/checkbox_trhee_options"
                             android:text="@string/one_way"
-                            android:textAlignment="center"
-                            android:textColor="@color/design_default_color_primary_dark" />
+                            android:textAlignment="center"/>
 
 
                     </RadioGroup>
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/history"
                         android:layout_width="0dp"
                         android:layout_row="0"
                         android:layout_column="2"
                         android:layout_columnWeight="1"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:background="@drawable/background_button_primery"
-                        android:elevation="10dp"
-                        android:text="@string/history"
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
+                        style="@style/Widget.Material3.Button"
+                        app:cornerRadius="10dp"
+                        android:text="@string/history"/>
 
 
                     //Details Text Input
 
                     <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="match_parent"
                         android:layout_row="1"
                         android:layout_columnSpan="3"
@@ -126,14 +116,13 @@
                             android:layout_marginTop="90dp"
                             android:hint="@string/from"
                             android:imeOptions="actionNext"
-
                             android:inputType="text"
                             android:maxLines="1"
                             tools:ignore="TextContrastCheck" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="match_parent"
                         android:layout_row="2"
                         android:layout_columnSpan="3"
@@ -152,7 +141,7 @@
                     //Date Box
 
                     <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="0dp"
                         android:layout_row="4"
                         android:layout_column="0"
@@ -172,7 +161,7 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/ret"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="0dp"
                         android:layout_row="4"
                         android:layout_column="1"
@@ -206,6 +195,7 @@
                             android:layout_columnSpan="5"
                             android:layout_columnWeight="5"
                             android:text="@string/pasajeros"
+                            style="@style/TextAppearance.Material3.BodyMedium"
                             android:textAlignment="center" />
 
                         <ImageView
@@ -219,10 +209,10 @@
                             android:background="@drawable/background_button_primery"
                             android:contentDescription="@string/add_button"
                             android:src="@drawable/add"
-                            app:tint="@color/white" />
+                            app:tint="#ffffff" />
 
                         <com.google.android.material.textfield.TextInputLayout
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_row="1"
@@ -255,7 +245,7 @@
                             android:background="@drawable/background_button_primery"
                             android:contentDescription="@string/rest_button"
                             android:src="@drawable/remove"
-                            app:tint="@color/white"
+                            app:tint="#ffffff"
                             tools:ignore="RedundantDescriptionCheck" />
                     </GridLayout>
 
@@ -265,6 +255,7 @@
                         android:layout_height="match_parent"
                         android:layout_row="4"
                         android:layout_columnSpan="3"
+                        style="material3.textview"
                         android:text="@string/maximum_numbre_of_stops" />
 
                     <RadioGroup
@@ -284,8 +275,7 @@
                             android:button="@drawable/checkbox_trhee_options"
                             android:checked="true"
                             android:text="@string/non_stop"
-                            android:textAlignment="center"
-                            android:textColor="@color/design_default_color_primary_dark" />
+                            android:textAlignment="center" />
 
                         <RadioButton
                             android:id="@+id/onestop"
@@ -295,8 +285,7 @@
                             android:background="@drawable/checkbox_trhee_options"
                             android:button="@drawable/checkbox_trhee_options"
                             android:text="@string/one_stop"
-                            android:textAlignment="center"
-                            android:textColor="@color/design_default_color_primary_dark" />
+                            android:textAlignment="center"/>
 
                         <RadioButton
                             android:id="@+id/more"
@@ -306,20 +295,17 @@
                             android:background="@drawable/checkbox_trhee_options"
                             android:button="@drawable/checkbox_trhee_options"
                             android:text="@string/_2_or_more"
-                            android:textAlignment="center"
-                            android:textColor="@color/design_default_color_primary_dark" />
+                            android:textAlignment="center" />
                     </RadioGroup>
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
+                        app:cornerRadius="10dp"
                         android:id="@+id/buscar"
-                        style="@style/Widget.MaterialComponents.Button"
+                        style="@style/Widget.Material3.Button.TonalButton"
                         android:layout_width="match_parent"
                         android:layout_row="6"
                         android:layout_columnSpan="3"
-                        android:background="@drawable/background_outlined_primery"
-                        android:elevation="10dp"
-                        android:text="@string/search_flights"
-                        android:textColor="@color/white" />
+                        android:text="@string/search_flights"/>
                 </GridLayout>
             </RelativeLayout>
 
@@ -335,7 +321,6 @@
                 android:fontFamily="@font/days_one"
                 android:text="@string/history"
                 android:textAllCaps="true"
-                android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:visibility="invisible" />
@@ -349,7 +334,14 @@
                 android:orientation="vertical"
                 android:padding="10dp">
 
-
+                <!-- Preview Texto historial resultado
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/background_white"
+                    android:padding="10dp"
+                    android:text="@string/euismod_nunc_in_sit_ipsum_laoreet_amet_odio_nec_a_vel_sit_condimentum_condimentum_enim_a_atlorem_dolor_est_elit_in_dolor_amet_nec_libero_curabitur_sagittis_libero_viverra_vitae_id_tincidunt_est_vitae_euismod_viverra_nullam_consectetur_adipiscing_nunc_auctor_libero_consectetur_adipiscing_libero_tincidunt_curabitur_sagittis_vel_enim_elit_at_auctor_id_id_id_laoreet_dolor_ipsum_odio_lorem_dolor_nullam" />
+                -->
             </LinearLayout>
 
         </RelativeLayout>

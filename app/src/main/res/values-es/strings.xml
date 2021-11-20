@@ -23,4 +23,10 @@
     <string name="action_sign_in">Iniciar sesión o resgistrarse</string>
     <string name="action_sign_in_short">Iniciar sesión</string>
     <string name="title_home">Inicio</string>
+    <string name="hello">"Hola, "</string>
+    <string name="prompt_username">Nombre de Usuario</string>
+    <string name="register">Registro</string>
+    <string name="search">Buscar</string>
+    <string name="perfil">Perfil</string>
+    <string name="reservas">Reservas</string>
 </resources>

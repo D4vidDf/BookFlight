@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/aldrich"
-                android:textColor="@color/black"
+                android:textColor="#000000"
                 android:text="@string/vuelo"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/aldrich"
                 android:text="@string/depart"
-                android:textColor="@color/black"
+                android:textColor="#000000"
                 android:textAlignment="textStart"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textStyle="bold" />
@@ -56,7 +56,7 @@
                 android:fontFamily="@font/aldrich"
                 android:text="@string/returnn"
                 android:textAlignment="textStart"
-                android:textColor="@color/black"
+                android:textColor="#000000"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textStyle="bold" />
 

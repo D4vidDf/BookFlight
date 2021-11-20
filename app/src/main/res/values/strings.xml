@@ -36,4 +36,10 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard" translatable="false">Dashboard</string>
     <string name="title_notifications" translatable="false">Notifications</string>
+    <string name="register">Resgistro</string>
+    <string name="hello">"Hola, "</string>
+    <string name="prompt_username">Nombre de usuario</string>
+    <string name="search">Buscar</string>
+    <string name="perfil">Perfil</string>
+    <string name="reservas">Reservas</string>
 </resources>
