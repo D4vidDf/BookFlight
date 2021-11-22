@@ -4,18 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.RegisterActivity">
+    tools:context=".ui.EditProfileActivity">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
-        android:fontFamily="@font/days_one"
-        android:text="@string/register"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            style="@style/Widget.Material3.AppBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:textAlignment="center"
+
+            app:navigationIcon="@drawable/ic_round_arrow_back_ios_new_24"
+            app:title="@string/edit"
+            app:titleCentered="true"
+            app:titleTextAppearance="@style/TextAppearance.Material3.HeadlineLarge" />
+    </com.google.android.material.appbar.AppBarLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -32,7 +38,7 @@
                 android:id="@+id/profileImg"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:padding="10dp"
+                android:padding="5dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_round_person_24"
                 app:shapeAppearanceOverlay="@style/circleImageView"
@@ -85,58 +91,33 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/days_one"
                 android:hint="@string/prompt_email"
-                android:imeOptions="actionNext"
+                android:imeOptions="actionDone"
                 android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/pam"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/save"
+            style="@style/Widget.Material3.Button.TonalButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/emp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="80dp"
-            app:passwordToggleEnabled="true"
-            app:passwordToggleTint="@color/md_theme_light_tertiary">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/days_one"
-                android:hint="@string/prompt_password"
-                android:imeOptions="actionGo"
-                android:inputType="textPassword"
-
-                />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/register"
-            style="@style/Widget.Material3.Button.TonalButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/pam"
-            android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp"
             android:layout_marginEnd="80dp"
-            android:text="@string/register"
+            android:text="@string/guardar"
             app:cornerRadius="5dp" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/login"
+            android:id="@+id/cancell"
             style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/register"
+            android:layout_below="@id/save"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="80dp"
-            android:text="@string/login"
+            android:text="@string/cancelar"
             app:cornerRadius="5dp" />
     </RelativeLayout>
-
 
 </RelativeLayout>

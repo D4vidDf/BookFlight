@@ -4,6 +4,8 @@ public class Vuelos {
     String tipo, from, to, salida, volver, paradas;
     int pasajeros;
 
+    public Vuelos(){}
+
     public Vuelos(String ti, String fr, String t, String sal, String vol, String para, int pasa) {
         this.tipo = ti;
         this.from = fr;
@@ -14,14 +16,6 @@ public class Vuelos {
         this.pasajeros = pasa;
     }
 
-    public Vuelos(String ti, String fr, String t, String sal, String para, int pasa) {
-        this.tipo = ti;
-        this.from = fr;
-        this.to = t;
-        this.salida = sal;
-        this.paradas = para;
-        this.pasajeros = pasa;
-    }
 
     public String getTipo() {
         return tipo;

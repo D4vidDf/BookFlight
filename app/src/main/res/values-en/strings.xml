@@ -29,4 +29,8 @@
     <string name="search">Search</string>
     <string name="perfil">Profile</string>
     <string name="reservas">Reservations</string>
+    <string name="logout">Log out</string>
+    <string name="edit">Edit profile</string>
+    <string name="cancelar">Cancell</string>
+    <string name="guardar">Save changes</string>
 </resources>

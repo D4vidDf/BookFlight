@@ -42,4 +42,10 @@
     <string name="search">Buscar</string>
     <string name="perfil">Perfil</string>
     <string name="reservas">Reservas</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="edit">Editar perfil</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="guardar">Guardar</string>
+    <string name="transbordos">transbordos</string>
+    <string name="tipo">Tipo</string>
 </resources>

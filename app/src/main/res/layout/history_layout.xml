@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Widget.Material3.CardView.Elevated"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp"
+    android:elevation="10dp"
+    app:cardCornerRadius="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/fromh"
+            style="@style/TextAppearance.Material3.TitleLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/from" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/toh"
+            style="@style/TextAppearance.Material3.TitleLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fromh"
+            android:text="@string/to" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/salidah"
+            style="@style/TextAppearance.Material3.TitleLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toh"
+            android:text="@string/depart" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/llegadah"
+            style="@style/TextAppearance.Material3.TitleLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/salidah"
+            android:text="@string/returnn" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/pasajeroh"
+            style="@style/TextAppearance.Material3.TitleLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/llegadah"
+            android:text="@string/pasajeros" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/transbordosh"
+            style="@style/TextAppearance.Material3.TitleLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pasajeroh"
+            android:text="@string/transbordos" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tipoh"
+            style="@style/TextAppearance.Material3.TitleLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/transbordosh"
+            android:text="@string/tipo" />
+    </RelativeLayout>
+
+
+</com.google.android.material.card.MaterialCardView>

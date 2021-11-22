@@ -6,14 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".ui.LoginActivity">
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
         <ImageView
             android:id="@+id/plane"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="80dp"
-            android:tint="@color/material_on_surface_emphasis_medium"
+            android:layout_marginTop="20dp"
             android:src="@drawable/ic_launcher_foreground"
+            android:tint="@color/material_on_surface_emphasis_medium"
             tools:ignore="UseAppTint" />
 
         <TextView
@@ -25,41 +30,46 @@
             android:fontFamily="@font/days_one"
             android:text="@string/app_name"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_below="@id/tit"
             android:id="@+id/emp"
-            android:layout_width="310dp"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/tit"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense">
+            android:layout_marginEnd="80dp">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/days_one"
                 android:hint="@string/prompt_email"
-                android:inputType="textEmailAddress"
                 android:imeOptions="actionNext"
-                android:fontFamily="@font/days_one"/>
+                android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/pam"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@id/emp"
             android:layout_centerHorizontal="true"
-            android:layout_width="310dp"
-            app:passwordToggleEnabled="true"
-            app:passwordToggleTint="@color/md_theme_light_tertiary"
-            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense">
+            android:layout_marginEnd="80dp"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/md_theme_light_tertiary">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/days_one"
                 android:hint="@string/prompt_password"
-                android:imeOptions="actionSend"
+                android:imeOptions="actionGo"
                 android:inputType="textPassword"
 
                 />
@@ -67,22 +77,27 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/login"
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pam"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="80dp"
+            android:text="@string/login"
+            app:cornerRadius="5dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/register"
+            style="@style/Widget.Material3.Button.ElevatedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/login"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            android:layout_below="@id/pam"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/Widget.Material3.Button.TonalButton"
-            android:text="@string/login"/>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/register"
-        style="@style/Widget.Material3.Button.TextButton.Dialog"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/login"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="@string/register" />
+            android:layout_marginEnd="80dp"
+            android:text="@string/register"
+            app:cornerRadius="5dp" />
+    </RelativeLayout>
 
 </RelativeLayout>

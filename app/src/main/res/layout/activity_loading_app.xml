@@ -4,19 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/md_theme_light_primary"
+    android:background="@color/md_theme_dark_onBackground"
     app:layoutDescription="@xml/activity_loading_app_scene"
     tools:context=".ui.LoadingApp">
 
 
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:tint="@color/design_default_color_on_primary"
-            app:layout_constraintTop_toBottomOf="parent"
-            app:srcCompat="@drawable/ic_launcher_foreground"
-            tools:layout_editor_absoluteX="152dp"
-            tools:ignore="UseAppTint" />
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tint="@color/md_theme_light_primary"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:srcCompat="@drawable/ic_launcher_foreground"
+        tools:ignore="UseAppTint"
+        tools:layout_editor_absoluteX="152dp" />
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

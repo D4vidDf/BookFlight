@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
             // Apply the insets as padding to the view. Here we're setting all of the
             // dimensions, but apply as appropriate to your layout. You could also
             // update the views margin if more appropriate.
-            view.setPadding(0,insets.top,0,0);
+            view.setPadding(0, insets.top, 0, 0);
 
             // Return CONSUMED if we don't want the window insets to keep being passed
             // down to descendant views.
@@ -58,26 +58,30 @@ public class LoginActivity extends AppCompatActivity {
         iniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mAuth.signInWithEmailAndPassword(em.getText().toString(), pa.getText().toString())
-                        .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    Log.d("TAG", "signInWithEmail:success");
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    Intent act = new Intent(LoginActivity.this, Bottom.class);
-                                    startActivity(act);
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Log.w("TAG", "signInWithEmail:failure", task.getException());
-                                    Toast.makeText(getApplicationContext(), "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
-                                }
+                if (em.getText().toString().isEmpty() || pa.getText().toString().isEmpty()) {
+                    Toast.makeText(LoginActivity.this, "Por favor, rellene todos los campos", Toast.LENGTH_LONG);
+                } else {
+                    mAuth.signInWithEmailAndPassword(em.getText().toString(), pa.getText().toString())
+                            .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        // Sign in success, update UI with the signed-in user's information
+                                        Log.d("TAG", "signInWithEmail:success");
+                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        Intent act = new Intent(LoginActivity.this, Bottom.class);
+                                        startActivity(act);
+                                    } else {
+                                        // If sign in fails, display a message to the user.
+                                        Log.w("TAG", "signInWithEmail:failure", task.getException());
+                                        Toast.makeText(getApplicationContext(), "Authentication failed.",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
 
-                                // ...
-                            }
-                        });
+                                    // ...
+                                }
+                            });
+                }
 
             }
         });

@@ -1,6 +1,7 @@
 package com.d4viddf.bookflight.ui.home;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -24,16 +25,20 @@ import androidx.fragment.app.Fragment;
 import com.d4viddf.bookflight.R;
 import com.d4viddf.bookflight.Vuelos;
 import com.d4viddf.bookflight.databinding.FragmentHomeBinding;
+import com.d4viddf.bookflight.ui.HistoryActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.UUID;
 
 public class HomeFragment extends Fragment {
-
+    FirebaseDatabase database = FirebaseDatabase.getInstance("https://bookflight-d4viddf-default-rtdb.europe-west1.firebasedatabase.app");
     Button history, search;
     ImageView add, remove;
     TextInputEditText from, to, depart, volver, passanger;
@@ -46,7 +51,6 @@ public class HomeFragment extends Fragment {
     LinearLayout resul;
     ScrollView scroll;
 
-    ArrayList<Vuelos> vuel = new ArrayList<>();
 
     private FragmentHomeBinding binding;
 
@@ -56,6 +60,9 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference myRef = database.getReference("users").child(currentUser.getUid());
 
         ViewCompat.setOnApplyWindowInsetsListener(root, (v, windowInsets) -> {
             Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemGestures());
@@ -69,18 +76,13 @@ public class HomeFragment extends Fragment {
             return WindowInsetsCompat.CONSUMED;
         });
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        //RelativeLayout Resultado
-        resul = root.findViewById(R.id.layoutresultado);
         //ScrollView
         scroll = root.findViewById(R.id.scroll);
-
-        //Text
-        tit = root.findViewById(R.id.tittleres);
         name = root.findViewById(R.id.name);
 
         if (user != null){
             String Uname = user.getDisplayName();
+
             name.setText(new String(getString(R.string.hello)+Uname));
         }
 
@@ -174,8 +176,8 @@ public class HomeFragment extends Fragment {
                     para = "2 or more";
                 }
                 vul = new Vuelos(tipo, fr, hacia, des, hasta, para, pasa);
-                vuel.add(vul);
-                pal = "Tipo de vuelo: " + vul.getTipo() + "\nDesde: " + vul.getFrom() + "\nHasta: " + vul.getTo() + "\nSalida: " + vul.getSalida() + "\nRegreso: " + vul.getVolver() + "\nNº pasajeros: " + vul.getPasajeros() + "\nNº paradas: " + vul.getParadas();
+                myRef.child("history").child(UUID.randomUUID().toString()).setValue(vul);
+
             }
 
             //Tipo viaje oneway
@@ -183,6 +185,7 @@ public class HomeFragment extends Fragment {
                 String fr = Objects.requireNonNull(from.getText()).toString();
                 String hacia = Objects.requireNonNull(to.getText()).toString();
                 String des = Objects.requireNonNull(depart.getText()).toString();
+                String hasta = "";
                 int pasa = Integer.parseInt(Objects.requireNonNull(passanger.getText()).toString());
                 String tipo = "Roundtrip";
                 String para = "";
@@ -193,60 +196,17 @@ public class HomeFragment extends Fragment {
                 } else if (more.isChecked()) {
                     para = "2 or more";
                 }
-                vul = new Vuelos(tipo, fr, hacia, des, para, pasa);
-                vuel.add(vul);
-                pal = "Tipo de vuelo: " + vul.getTipo() + "\nDesde: " + vul.getFrom() + "\nHasta: " + vul.getTo() + "\nSalida: " + vul.getSalida() + "\nNº pasajeros: " + vul.getPasajeros() + "\nNº paradas: " + vul.getParadas();
+                vul = new Vuelos(tipo, fr, hacia, des,hasta, para, pasa);
+                myRef.child("history").child(UUID.randomUUID().toString()).setValue(vul);
 
             }
 
-            //Poner titulo
-            tit.setText(R.string.resultado);
-            tit.setVisibility(View.VISIBLE);
-            //Borrar vista
-            resul.removeAllViews();
-            //Personalizar texto
-            TextView text = new TextView(getContext());
-            text.setBackgroundResource(R.drawable.background_white);
-            text.setText(pal);
-            text.setLayoutParams(param);
-            text.setPadding(20, 20, 20, 20);
-            //Mostrar texto
-            resul.addView(text);
         });
 
         //History Button
         history.setOnClickListener(view -> {
-            resul.removeAllViews();
-
-            tit.setText(R.string.history);
-            String r;
-            if (vuel.isEmpty()) {
-                TextView text = new TextView(getContext());
-                text.setTextColor(ContextCompat.getColor(getContext(), Color.parseColor("#ffffff")));
-                text.setTextSize(24);
-                text.setText(R.string.notresults);
-                text.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                text.setLayoutParams(param);
-                text.setPadding(20, 20, 20, 20);
-                //Mostrar texto
-                resul.addView(text);
-            } else {
-                tit.setVisibility(View.VISIBLE);
-                for (Vuelos v : vuel) {
-                    //Personalizar texto
-                    TextView text = new TextView(getContext());
-                    text.setBackgroundResource(R.drawable.background_white);
-                    if (v.getVolver() == null) {
-                        r = "Tipo de vuelo: " + v.getTipo() + "\nDesde: " + v.getFrom() + "\nHasta: " + v.getTo() + "\nSalida: " + v.getSalida() + "\nNº pasajeros: " + v.getPasajeros() + "\nNº paradas: " + v.getParadas();
-                    } else
-                        r = "Tipo de vuelo: " + v.getTipo() + "\nDesde: " + v.getFrom() + "\nHasta: " + v.getTo() + "\nSalida: " + v.getSalida() + "\nRegreso: " + v.getVolver() + "\nNº pasajeros: " + v.getPasajeros() + "\nNº paradas: " + v.getParadas();
-                    text.setText(r);
-                    text.setLayoutParams(param);
-                    text.setPadding(20, 20, 20, 20);
-                    //Mostrar texto
-                    resul.addView(text);
-                }
-            }
+            Intent intent = new Intent(getContext(), HistoryActivity.class);
+            startActivity(intent);
         });
 
         //Hide title on Scroll
@@ -279,13 +239,5 @@ public class HomeFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-    @Override
-    public void onStart(){
-        super.onStart();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null){
-            String Uname = user.getDisplayName();
-            name.setText(new String(getString(R.string.hello)+Uname));
-        }
-    }
+
 }

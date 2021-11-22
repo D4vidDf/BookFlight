@@ -88,11 +88,11 @@
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:textColor="@color/design_default_color_primary"
-            android:text="Reservar"
+            android:layout_below="@id/inf"
             android:layout_alignParentEnd="true"
-            android:layout_below="@id/inf"/>
+            android:layout_margin="10dp"
+            android:text="Reservar"
+            android:textColor="@color/design_default_color_primary" />
     </RelativeLayout>
 
 
