@@ -2,11 +2,12 @@ package com.d4viddf.bookflight.ui.home;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,39 +17,54 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
 import com.d4viddf.bookflight.R;
-import com.d4viddf.bookflight.Vuelos;
+import com.d4viddf.bookflight.clas.History;
+import com.d4viddf.bookflight.clas.Vuelos;
 import com.d4viddf.bookflight.databinding.FragmentHomeBinding;
 import com.d4viddf.bookflight.ui.HistoryActivity;
+import com.google.android.material.datepicker.CalendarConstraints;
+import com.google.android.material.datepicker.DateValidatorPointForward;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ServerValue;
+import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
+import java.net.Inet4Address;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
 public class HomeFragment extends Fragment {
+    String[] citys = new String[]{"A Coruña", "Madrid", "París", "Barcelona", "Roma", "Nueva York"};
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://bookflight-d4viddf-default-rtdb.europe-west1.firebasedatabase.app");
     Button history, search;
     ImageView add, remove;
-    TextInputEditText from, to, depart, volver, passanger;
+    TextInputEditText depart, volver, passanger;
+    MaterialAutoCompleteTextView from, to;
     TextInputLayout re;
-    TextView tit, name;
+    TextView name;
+
+    String identificador;
 
     RadioGroup tigroup, paradagroup;
     RadioButton round, oneway, non, one, more;
 
-    LinearLayout resul;
     ScrollView scroll;
 
 
@@ -69,30 +85,39 @@ public class HomeFragment extends Fragment {
             // Apply the insets as padding to the view. Here we're setting all of the
             // dimensions, but apply as appropriate to your layout. You could also
             // update the views margin if more appropriate.
-            root.setPadding(0,insets.top,0,0);
+            root.setPadding(0, insets.top, 0, 0);
 
             // Return CONSUMED if we don't want the window insets to keep being passed
             // down to descendant views.
             return WindowInsetsCompat.CONSUMED;
         });
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        //Droplist
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.dropdown_menu, citys);
+
         //ScrollView
         scroll = root.findViewById(R.id.scroll);
         name = root.findViewById(R.id.name);
 
-        if (user != null){
+        if (user != null) {
             String Uname = user.getDisplayName();
 
-            name.setText(new String(getString(R.string.hello)+Uname));
+            name.setText(new String(getString(R.string.hello) + Uname));
         }
 
         //RadioGroup
         tigroup = root.findViewById(R.id.tipo);
         paradagroup = root.findViewById(R.id.paradas);
 
-        //InputText
+        //Autocomplete
         from = root.findViewById(R.id.from);
         to = root.findViewById(R.id.to);
+
+        from.setAdapter(adapter);
+        to.setAdapter(adapter);
+
+        //InputText
         depart = root.findViewById(R.id.depart);
         volver = root.findViewById(R.id.returndate);
         passanger = root.findViewById(R.id.pasajero);
@@ -158,6 +183,7 @@ public class HomeFragment extends Fragment {
         //Search Flight
         search.setOnClickListener(view -> {
             Vuelos vul;
+            History history;
             String pal = "";
             //Tipo viaje roundtrip
             if (round.isChecked()) {
@@ -166,17 +192,20 @@ public class HomeFragment extends Fragment {
                 String des = Objects.requireNonNull(depart.getText()).toString();
                 String hasta = Objects.requireNonNull(volver.getText()).toString();
                 int pasa = Integer.parseInt(Objects.requireNonNull(passanger.getText()).toString());
-                String tipo = "Roundtrip";
+                String tipo = "Ida y Vuelta";
                 String para = "";
                 if (non.isChecked()) {
-                    para = "Non Stop";
+                    para = "Sin transbordos";
                 } else if (one.isChecked()) {
-                    para = "One Stop";
+                    para = "Un transbordo";
                 } else if (more.isChecked()) {
-                    para = "2 or more";
+                    para = "2 o Más";
                 }
+                String id = UUID.randomUUID().toString();
+                history = new History(tipo, fr, hacia, des, hasta, para, id, pasa);
                 vul = new Vuelos(tipo, fr, hacia, des, hasta, para, pasa);
-                myRef.child("history").child(UUID.randomUUID().toString()).setValue(vul);
+                myRef.child("history").child(id).setValue(history);
+                myRef.child("history").child(id).child("timestamp").setValue(ServerValue.TIMESTAMP);
 
             }
 
@@ -187,17 +216,20 @@ public class HomeFragment extends Fragment {
                 String des = Objects.requireNonNull(depart.getText()).toString();
                 String hasta = "";
                 int pasa = Integer.parseInt(Objects.requireNonNull(passanger.getText()).toString());
-                String tipo = "Roundtrip";
+                String tipo = "Ida";
                 String para = "";
                 if (non.isChecked()) {
-                    para = "Non Stop";
+                    para = "Sin transbordos";
                 } else if (one.isChecked()) {
-                    para = "One Stop";
+                    para = "Un transbordo";
                 } else if (more.isChecked()) {
-                    para = "2 or more";
+                    para = "2 o Más";
                 }
-                vul = new Vuelos(tipo, fr, hacia, des,hasta, para, pasa);
-                myRef.child("history").child(UUID.randomUUID().toString()).setValue(vul);
+                String id = UUID.randomUUID().toString();
+                history = new History(tipo, fr, hacia, des, hasta, para, id, pasa);
+                vul = new Vuelos(tipo, fr, hacia, des, hasta, para, pasa);
+                myRef.child("history").child(id).setValue(history);
+                myRef.child("history").child(id).child("timestamp").setValue(ServerValue.TIMESTAMP);
 
             }
 
@@ -230,6 +262,69 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        //DatePickerDialog
+
+        depart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (volver.getVisibility() == View.INVISIBLE) {
+                    volver.getText().clear();
+                    datePickerDay();
+                } else
+                    datePickerDays();
+            }
+        });
+        volver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                datePickerDays();
+            }
+        });
+        if (getActivity().getIntent().getBooleanExtra("state", false) == true)
+            identificador = getActivity().getIntent().getStringExtra("identificador");
+        if (identificador != null) {
+            Log.i("id", identificador);
+            DatabaseReference myRef2 = database.getReference("users").child(currentUser.getUid()).child("history");
+            Query query = myRef2.child(identificador);
+
+            query.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    History history = snapshot.getValue(History.class);
+                    from.setText(history.getFrom().toString());
+                    to.setText(history.getTo());
+                    depart.setText(history.getSalida());
+                    volver.setText(history.getVolver());
+                    passanger.setText(String.valueOf(history.getPasajeros()));
+                    if (history.getTipo().equalsIgnoreCase("ida")) {
+                        tigroup.check(oneway.getId());
+                        re.setHint("");
+                        volver.setVisibility(View.INVISIBLE);
+
+                    } else if (history.getTipo().equalsIgnoreCase("ida y vuelta")) {
+                        tigroup.check(round.getId());
+                        re.setHint(R.string.returnn);
+                        volver.setVisibility(View.VISIBLE);
+                    }
+                    if (history.getParadas().equalsIgnoreCase("Sin transbordos")) {
+                        paradagroup.check(non.getId());
+                    } else if (history.getParadas().equalsIgnoreCase("Un transbordo")) {
+                        paradagroup.check(one.getId());
+                    } else if (history.getParadas().equalsIgnoreCase("2 o Más")) {
+                        paradagroup.check(more.getId());
+                    }
+
+                    getActivity().getIntent().putExtra("state", false);
+                    identificador = null;
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+
 
         return root;
     }
@@ -240,4 +335,59 @@ public class HomeFragment extends Fragment {
         binding = null;
     }
 
+    public void datePickerDays() {
+        CalendarConstraints.Builder calendarConstraints = new CalendarConstraints.Builder();
+        calendarConstraints.setValidator(DateValidatorPointForward.now());
+        MaterialDatePicker dateRangePicker =
+                MaterialDatePicker.Builder.dateRangePicker()
+                        .setCalendarConstraints(calendarConstraints.build())
+                        .setTitleText("Selecciona las fechas")
+                        .setTheme(R.style.Custom_MaterialCalendar_Fullscreen)
+                        .build();
+
+        dateRangePicker.show(getActivity().getSupportFragmentManager(), "datepicker");
+        dateRangePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
+            @Override
+            public void onPositiveButtonClick(Object selection) {
+                String fechas = selection.toString();
+                String fechasparser1 = fechas.substring(fechas.indexOf("{") + 1, fechas.indexOf("}"));
+                long depar = Long.parseLong(fechasparser1.substring(0, 13));
+                long volv = Long.parseLong(fechasparser1.substring(14));
+                Date dateDepar = new Date(depar);
+                Date datevolv = new Date(volv);
+                SimpleDateFormat df = new SimpleDateFormat("dd/MM/yy");
+                depart.setText(df.format(dateDepar));
+                volver.setText(df.format(datevolv));
+            }
+        });
+
+    }
+
+    public void datePickerDay() {
+        CalendarConstraints.Builder calendarConstraints = new CalendarConstraints.Builder();
+        calendarConstraints.setValidator(DateValidatorPointForward.now());
+        MaterialDatePicker dateRangePicker =
+                MaterialDatePicker.Builder.datePicker()
+                        .setTitleText("Selecciona las fechas")
+                        .setCalendarConstraints(calendarConstraints.build())
+                        .setTheme(R.style.Custom_MaterialCalendar_Fullscreen)
+                        .build();
+
+        dateRangePicker.show(getActivity().getSupportFragmentManager(), "datepicker");
+        dateRangePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
+            @Override
+            public void onPositiveButtonClick(Object selection) {
+                long depar = Long.parseLong(selection.toString());
+                Date dateDepar = new Date(depar);
+                SimpleDateFormat df = new SimpleDateFormat("dd/MM/yy");
+                depart.setText(df.format(dateDepar));
+            }
+        });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
 }

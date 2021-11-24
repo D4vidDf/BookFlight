@@ -14,6 +14,10 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.d4viddf.bookflight.R;
 import com.google.android.gms.tasks.Continuation;
@@ -56,6 +60,24 @@ public class EditProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
                 finish();
             }
+        });
+
+        View views = new View(this);
+        views.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), true);
+
+        ViewCompat.setOnApplyWindowInsetsListener(views, (v, windowInsets) -> {
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemGestures());
+            // Apply the insets as padding to the view. Here we're setting all of the
+            // dimensions, but apply as appropriate to your layout. You could also
+            // update the views margin if more appropriate.
+            views.setPadding(0, insets.top, 0, 0);
+
+            // Return CONSUMED if we don't want the window insets to keep being passed
+            // down to descendant views.
+            return WindowInsetsCompat.CONSUMED;
         });
 
         ShapeableImageView imageView = findViewById(R.id.profileImg);

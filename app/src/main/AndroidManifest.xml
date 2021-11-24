@@ -15,20 +15,25 @@
         android:windowSoftInputMode="adjustPan">
         <activity
             android:name=".ui.HistoryActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".ui.EditProfileActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".ui.RegisterActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Bottom"
+            android:screenOrientation="portrait"
             android:exported="false"
             android:label="@string/title_activity_bottom"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui.LoginActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".ui.LoadingApp"

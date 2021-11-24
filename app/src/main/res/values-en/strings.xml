@@ -33,4 +33,10 @@
     <string name="edit">Edit profile</string>
     <string name="cancelar">Cancell</string>
     <string name="guardar">Save changes</string>
+    <string name="transbordos">Transshipments</string>
+    <string name="tipo">Type</string>
+    <string name="clearHistory">Clear History</string>
+    <string name="mtrl_picker_save">Save</string>
+    <string name="mtrl_picker_text_input_date_range_start_hint">Depart</string>
+    <string name="mtrl_picker_text_input_date_range_end_hint">Return</string>
 </resources>

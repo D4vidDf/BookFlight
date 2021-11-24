@@ -114,17 +114,4 @@ public class ProfileFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            String Uname = user.getDisplayName();
-            Uri photoUrl = user.getPhotoUrl();
-            username.setText(new String(getString(R.string.hello) + Uname));
-            Picasso.get().load(photoUrl).placeholder(R.drawable.ic_round_person_24).into(imagen);
-
-        }
-    }
 }

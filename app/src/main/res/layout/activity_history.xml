@@ -9,7 +9,8 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/topli">
+        android:id="@+id/topli"
+        >
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
@@ -21,11 +22,11 @@
             app:navigationIcon="@drawable/ic_round_arrow_back_ios_new_24"
             app:title="@string/history"
             app:titleCentered="true"
-            app:titleTextAppearance="@style/TextAppearance.Material3.HeadlineLarge" />
+            app:titleTextAppearance="@style/TextAppearance.Material3.HeadlineLarge"/>
     </com.google.android.material.appbar.AppBarLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:layout_below="@id/topli"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/list_history"/>
 </RelativeLayout>

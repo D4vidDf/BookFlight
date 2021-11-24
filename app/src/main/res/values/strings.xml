@@ -48,4 +48,8 @@
     <string name="guardar">Guardar</string>
     <string name="transbordos">transbordos</string>
     <string name="tipo">Tipo</string>
+    <string name="clearHistory">Borrar historial</string>
+    <string name="mtrl_picker_save" description="Confirms the selection [CHAR_LIMIT=12]">Guardar</string>
+    <string name="mtrl_picker_text_input_date_range_start_hint" description="Label for the start date in a range selected by the user [CHAR_LIMIT=60]">Salida</string>
+    <string name="mtrl_picker_text_input_date_range_end_hint" description="Label for the end date in a range selected by the user [CHAR_LIMIT=60]">Vuelta</string>
 </resources>

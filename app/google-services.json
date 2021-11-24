@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1082284999557",
+    "firebase_url": "https://bookflight-d4viddf-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "bookflight-d4viddf",
+    "storage_bucket": "bookflight-d4viddf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1082284999557:android:01cdb63f44826f63fafaec",
+        "android_client_info": {
+          "package_name": "com.d4viddf.bookflight"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1082284999557-2923c0qq67d6vh3a8dmc7mc9es7me76g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnr6OkOOpEy9CezHNfaMBRbGUy4Lbe3Mo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1082284999557-2923c0qq67d6vh3a8dmc7mc9es7me76g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

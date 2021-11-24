@@ -3,6 +3,7 @@ package com.d4viddf.bookflight;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 
 import com.d4viddf.bookflight.ui.LoadingApp;
@@ -47,6 +48,9 @@ public class Bottom extends AppCompatActivity {
         if (getIntent().getBooleanExtra("frg", false) == true){
             binding.navView.setSelectedItemId(R.id.navigation_reservations);
         }
+        if (getIntent().getStringExtra("identificador") != null) {
+            Log.i("identificador",getIntent().getStringExtra("identificador"));
+        }
 
 
     }
@@ -64,6 +68,8 @@ public class Bottom extends AppCompatActivity {
             startActivity(mainIntent);
             finish();
         }
+
+
     }
 
 }
