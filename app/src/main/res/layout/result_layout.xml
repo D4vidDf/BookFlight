@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card"
+        style="@style/Widget.Material3.CardView.Elevated"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        app:cardCornerRadius="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/constraint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/fromh"
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:padding="10dp"
+                    android:text="@string/from"
+                    android:textSize="20sp"
+                    app:chipCornerRadius="4dp"
+                    app:chipIcon="@drawable/ic_round_airplanemode_active_24_depart" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/toh"
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:padding="10dp"
+                    android:text="@string/to"
+                    android:textSize="20sp"
+                    app:chipCornerRadius="4dp"
+                    app:chipIcon="@drawable/ic_round_airplanemode_active_24_arrive" />
+            </com.google.android.material.chip.ChipGroup>
+
+
+            <HorizontalScrollView
+                android:id="@+id/sc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sc2"
+                android:scrollbars="none">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipgroup"
+                    style="@style/Widget.Material3.ChipGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:padding="8dp"
+                    app:chipSpacingHorizontal="2dp">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/tipoh"
+                        style="@style/Widget.Material3.Chip.Suggestion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tipo" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/companhia"
+                        style="@style/Widget.Material3.Button.TonalButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:layout_marginEnd="10dp"
+                        android:text="@string/companhia"
+                        app:chipIcon="@drawable/ic_round_airlines_24" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/money"
+                        style="@style/Widget.Material3.Button.TonalButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:text="@string/precio"
+                        app:chipIcon="@drawable/ic_round_euro_24" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/pasajeroh"
+                        style="@style/Widget.Material3.Button.TonalButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:layout_marginEnd="10dp"
+                        android:text="@string/pasajeros"
+                        app:chipIcon="@drawable/ic_round_person_24" />
+
+                </com.google.android.material.chip.ChipGroup>
+            </HorizontalScrollView>
+
+            <HorizontalScrollView
+                android:id="@+id/sc2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/constraint"
+                android:scrollbars="none">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipgroup2"
+                    style="@style/Widget.Material3.ChipGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    app:chipSpacingHorizontal="2dp">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/salidah"
+                        style="@style/Widget.Material3.Button.TonalButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_below="@id/sc"
+                        android:layout_marginStart="10dp"
+                        android:text="@string/depart"
+                        app:chipCornerRadius="4dp"
+                        app:chipIcon="@drawable/ic_calendar_today_24" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/llegadah"
+                        style="@style/Widget.Material3.Button.TonalButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="10dp"
+                        android:text="@string/returnn"
+                        app:chipCornerRadius="4dp"
+                        app:chipIcon="@drawable/ic_calendar_today_24" />
+                </com.google.android.material.chip.ChipGroup>
+            </HorizontalScrollView>
+
+
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+</RelativeLayout>
