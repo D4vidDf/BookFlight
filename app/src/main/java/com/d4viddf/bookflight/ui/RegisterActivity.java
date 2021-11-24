@@ -6,6 +6,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
@@ -57,6 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
     Uri uri;
     Uri mage;
     ShapeableImageView imageView;
+    CardView card;
     ActivityResultLauncher<Intent> activityResultLauncher;
     private DatabaseReference mDatabase;
     @Override
@@ -102,7 +104,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
         });
-
+        card = findViewById(R.id.load);
         mAuth = FirebaseAuth.getInstance();
         FloatingActionButton edit = findViewById(R.id.edit);
         TextInputEditText em = findViewById(R.id.email);
@@ -130,6 +132,7 @@ public class RegisterActivity extends AppCompatActivity {
                 if (em.getText().toString().isEmpty() || pa.getText().toString().isEmpty() || usernamer.getText().toString().isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Por favor, rellene todos los campos", Toast.LENGTH_LONG);
                 } else if (imagen_selected) {
+                    card.setVisibility(View.VISIBLE);
                     mAuth.createUserWithEmailAndPassword(em.getText().toString(), pa.getText().toString())
                             .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
@@ -173,7 +176,9 @@ public class RegisterActivity extends AppCompatActivity {
                                                     User user = new User(usernamer.getText().toString(), em.getText().toString());
 
                                                     mDatabase.child("users").child(mAuth.getUid()).setValue(user);
+
                                                     Intent act = new Intent(RegisterActivity.this, Bottom.class);
+                                                    card.setVisibility(View.GONE);
                                                     startActivity(act);
                                                 } else {
                                                 }
@@ -186,10 +191,12 @@ public class RegisterActivity extends AppCompatActivity {
                                         Log.w("TAG", "signInWithEmail:failure", task.getException());
                                         Toast.makeText(getApplicationContext(), "Authentication failed.",
                                                 Toast.LENGTH_SHORT).show();
+                                        card.setVisibility(View.GONE);
                                     }
                                 }
                             });
                 } else {
+                    card.setVisibility(View.VISIBLE);
                     mAuth.createUserWithEmailAndPassword(em.getText().toString(), pa.getText().toString())
                             .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
@@ -215,13 +222,17 @@ public class RegisterActivity extends AppCompatActivity {
                                         User users = new User(usernamer.getText().toString(), em.getText().toString());
 
                                         mDatabase.child("users").child(mAuth.getUid().toString()).setValue(users);
+
                                         Intent act = new Intent(RegisterActivity.this, Bottom.class);
+                                        card.setVisibility(View.GONE);
                                         startActivity(act);
+
                                     } else {
                                         // If sign in fails, display a message to the user.
                                         Log.w("TAG", "signInWithEmail:failure", task.getException());
                                         Toast.makeText(getApplicationContext(), "Authentication failed.",
                                                 Toast.LENGTH_SHORT).show();
+                                        card.setVisibility(View.GONE);
                                     }
                                 }
                             });

@@ -7,6 +7,7 @@
     tools:context=".ui.RegisterActivity">
 
 
+
     <TextView
         android:id="@+id/tit"
         android:layout_width="wrap_content"
@@ -45,7 +46,8 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_round_edit_24"
                 app:layout_constraintBottom_toBottomOf="@id/profileImg"
-                app:layout_constraintRight_toRightOf="@id/profileImg" />
+                app:layout_constraintRight_toRightOf="@id/profileImg"
+                tools:ignore="SpeakableTextPresentCheck" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -137,6 +139,30 @@
             android:text="@string/login"
             app:cornerRadius="5dp" />
     </RelativeLayout>
+
+    <androidx.cardview.widget.CardView
+        android:visibility="gone"
+        android:id="@+id/load"
+        app:cardCornerRadius="10dp"
+        style="@style/Widget.Material3.CardView.Elevated"
+        android:layout_centerInParent="true"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:elevation="20dp"
+        android:layout_margin="40dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp">
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:indeterminate="true"
+                app:indicatorDirectionCircular="counterclockwise" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
 
 
 </RelativeLayout>

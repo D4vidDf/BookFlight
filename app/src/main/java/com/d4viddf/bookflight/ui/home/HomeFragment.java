@@ -27,6 +27,7 @@ import com.d4viddf.bookflight.clas.History;
 import com.d4viddf.bookflight.clas.Vuelos;
 import com.d4viddf.bookflight.databinding.FragmentHomeBinding;
 import com.d4viddf.bookflight.ui.HistoryActivity;
+import com.d4viddf.bookflight.ui.ResultsActivity;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
@@ -51,8 +52,12 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class HomeFragment extends Fragment {
+    Boolean states = false;
     String[] citys = new String[]{"A Coruña", "Madrid", "París", "Barcelona", "Roma", "Nueva York"};
+
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://bookflight-d4viddf-default-rtdb.europe-west1.firebasedatabase.app");
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
     Button history, search;
     ImageView add, remove;
     TextInputEditText depart, volver, passanger;
@@ -66,7 +71,6 @@ public class HomeFragment extends Fragment {
     RadioButton round, oneway, non, one, more;
 
     ScrollView scroll;
-
 
     private FragmentHomeBinding binding;
 
@@ -91,10 +95,11 @@ public class HomeFragment extends Fragment {
             // down to descendant views.
             return WindowInsetsCompat.CONSUMED;
         });
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
 
         //Droplist
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.dropdown_menu, citys);
+        ArrayAdapter<String> adapterFrom = new ArrayAdapter<>(getContext(), R.layout.dropdown_menu, citys);
+        ArrayAdapter<String> adapterTo = new ArrayAdapter<>(getContext(), R.layout.dropdown_menu, citys);
 
         //ScrollView
         scroll = root.findViewById(R.id.scroll);
@@ -114,8 +119,8 @@ public class HomeFragment extends Fragment {
         from = root.findViewById(R.id.from);
         to = root.findViewById(R.id.to);
 
-        from.setAdapter(adapter);
-        to.setAdapter(adapter);
+        from.setAdapter(adapterFrom);
+        to.setAdapter(adapterTo);
 
         //InputText
         depart = root.findViewById(R.id.depart);
@@ -146,27 +151,11 @@ public class HomeFragment extends Fragment {
 
         //Add && Remove
         add.setOnClickListener(view -> {
-            if (Integer.parseInt(Objects.requireNonNull(passanger.getText()).toString()) < 0 || Integer.parseInt(passanger.getText().toString()) >= 19) {
-                if (Integer.parseInt(passanger.getText().toString()) < 0) {
-                    passanger.setText(String.valueOf(0));
-                } else if (Integer.parseInt(passanger.getText().toString()) > 19) {
-                    passanger.setText(String.valueOf(19));
-                } else passanger.setText("1");
-            } else {
-                int num = Integer.parseInt(passanger.getText().toString()) + 1;
-                passanger.setText(String.valueOf(num));
-            }
+            add();
         });
 
         remove.setOnClickListener(view -> {
-            if (Integer.parseInt(Objects.requireNonNull(passanger.getText()).toString()) > 0 && Integer.parseInt(passanger.getText().toString()) <= 19) {
-                int num = Integer.parseInt(passanger.getText().toString()) - 1;
-                passanger.setText(String.valueOf(num));
-            } else if (Integer.parseInt(passanger.getText().toString()) < 0) {
-                passanger.setText(String.valueOf(0));
-            } else if (Integer.parseInt(passanger.getText().toString()) > 19) {
-                passanger.setText(String.valueOf(19));
-            } else passanger.setText("19");
+            remove();
         });
 
         //Hide or show return
@@ -206,7 +195,9 @@ public class HomeFragment extends Fragment {
                 vul = new Vuelos(tipo, fr, hacia, des, hasta, para, pasa);
                 myRef.child("history").child(id).setValue(history);
                 myRef.child("history").child(id).child("timestamp").setValue(ServerValue.TIMESTAMP);
-
+                Intent intent = new Intent(getContext(), ResultsActivity.class);
+                intent.putExtra("id", id);
+                startActivity(intent);
             }
 
             //Tipo viaje oneway
@@ -214,7 +205,6 @@ public class HomeFragment extends Fragment {
                 String fr = Objects.requireNonNull(from.getText()).toString();
                 String hacia = Objects.requireNonNull(to.getText()).toString();
                 String des = Objects.requireNonNull(depart.getText()).toString();
-                String hasta = "";
                 int pasa = Integer.parseInt(Objects.requireNonNull(passanger.getText()).toString());
                 String tipo = "Ida";
                 String para = "";
@@ -226,10 +216,13 @@ public class HomeFragment extends Fragment {
                     para = "2 o Más";
                 }
                 String id = UUID.randomUUID().toString();
-                history = new History(tipo, fr, hacia, des, hasta, para, id, pasa);
-                vul = new Vuelos(tipo, fr, hacia, des, hasta, para, pasa);
+                history = new History(tipo, fr, hacia, des, para, id, pasa);
+                //vul = new Vuelos(tipo, fr, hacia, des, para, pasa);
                 myRef.child("history").child(id).setValue(history);
                 myRef.child("history").child(id).child("timestamp").setValue(ServerValue.TIMESTAMP);
+                Intent intent = new Intent(getContext(), ResultsActivity.class);
+                intent.putExtra("id", id);
+                startActivity(intent);
 
             }
 
@@ -242,47 +235,39 @@ public class HomeFragment extends Fragment {
         });
 
         //Hide title on Scroll
-        scroll.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(View view, int i, int i1, int i2, int i3) {
-                switch (i1) {
-                    case 2:
-                        name.setVisibility(View.VISIBLE);
-                        break;
-                    case 1:
-                        name.setVisibility(View.GONE);
-                        break;
-                    case 0:
-                        name.setVisibility(View.VISIBLE);
-                        break;
-                    default:
-                        name.setVisibility(View.GONE);
-                        break;
-                }
+        scroll.setOnScrollChangeListener((view, i, i1, i2, i3) -> {
+            switch (i1) {
+                case 2:
+                    name.setVisibility(View.VISIBLE);
+                    break;
+                case 1:
+                    name.setVisibility(View.GONE);
+                    break;
+                case 0:
+                    name.setVisibility(View.VISIBLE);
+                    break;
+                default:
+                    name.setVisibility(View.GONE);
+                    break;
             }
         });
 
         //DatePickerDialog
 
-        depart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (volver.getVisibility() == View.INVISIBLE) {
-                    volver.getText().clear();
-                    datePickerDay();
-                } else
-                    datePickerDays();
-            }
-        });
-        volver.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        depart.setOnClickListener(view -> {
+            if (volver.getVisibility() == View.INVISIBLE) {
+                volver.getText().clear();
+                datePickerDay();
+            } else
                 datePickerDays();
-            }
         });
-        if (getActivity().getIntent().getBooleanExtra("state", false) == true)
+        volver.setOnClickListener(view -> datePickerDays());
+        if (getActivity().getIntent().getBooleanExtra("state", false) == true) {
             identificador = getActivity().getIntent().getStringExtra("identificador");
-        if (identificador != null) {
+            states = true;
+        }
+
+        if (identificador != null && states == true) {
             Log.i("id", identificador);
             DatabaseReference myRef2 = database.getReference("users").child(currentUser.getUid()).child("history");
             Query query = myRef2.child(identificador);
@@ -291,31 +276,32 @@ public class HomeFragment extends Fragment {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     History history = snapshot.getValue(History.class);
-                    from.setText(history.getFrom().toString());
-                    to.setText(history.getTo());
-                    depart.setText(history.getSalida());
-                    volver.setText(history.getVolver());
-                    passanger.setText(String.valueOf(history.getPasajeros()));
-                    if (history.getTipo().equalsIgnoreCase("ida")) {
-                        tigroup.check(oneway.getId());
-                        re.setHint("");
-                        volver.setVisibility(View.INVISIBLE);
+                    if (history != null) {
+                        from.setText(history.getFrom());
+                        to.setText(history.getTo());
+                        depart.setText(history.getSalida());
+                        volver.setText(history.getVolver());
+                        passanger.setText(String.valueOf(history.getPasajeros()));
+                        if (history.getTipo().equalsIgnoreCase("ida")) {
+                            tigroup.check(oneway.getId());
+                            re.setHint("");
+                            volver.setVisibility(View.INVISIBLE);
 
-                    } else if (history.getTipo().equalsIgnoreCase("ida y vuelta")) {
-                        tigroup.check(round.getId());
-                        re.setHint(R.string.returnn);
-                        volver.setVisibility(View.VISIBLE);
-                    }
-                    if (history.getParadas().equalsIgnoreCase("Sin transbordos")) {
-                        paradagroup.check(non.getId());
-                    } else if (history.getParadas().equalsIgnoreCase("Un transbordo")) {
-                        paradagroup.check(one.getId());
-                    } else if (history.getParadas().equalsIgnoreCase("2 o Más")) {
-                        paradagroup.check(more.getId());
+                        } else if (history.getTipo().equalsIgnoreCase("ida y vuelta")) {
+                            tigroup.check(round.getId());
+                            re.setHint(R.string.returnn);
+                            volver.setVisibility(View.VISIBLE);
+                        }
+                        if (history.getParadas().equalsIgnoreCase("Sin transbordos")) {
+                            paradagroup.check(non.getId());
+                        } else if (history.getParadas().equalsIgnoreCase("Un transbordo")) {
+                            paradagroup.check(one.getId());
+                        } else if (history.getParadas().equalsIgnoreCase("2 o Más")) {
+                            paradagroup.check(more.getId());
+                        }
                     }
 
-                    getActivity().getIntent().putExtra("state", false);
-                    identificador = null;
+
                 }
 
                 @Override
@@ -323,17 +309,37 @@ public class HomeFragment extends Fragment {
 
                 }
             });
+            states = false;
         }
 
 
         return root;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+    private void remove() {
+        if (Integer.parseInt(Objects.requireNonNull(passanger.getText()).toString()) > 0 && Integer.parseInt(passanger.getText().toString()) <= 19) {
+            int num = Integer.parseInt(passanger.getText().toString()) - 1;
+            passanger.setText(String.valueOf(num));
+        } else if (Integer.parseInt(passanger.getText().toString()) < 0) {
+            passanger.setText(String.valueOf(0));
+        } else if (Integer.parseInt(passanger.getText().toString()) > 19) {
+            passanger.setText(String.valueOf(19));
+        } else passanger.setText("19");
     }
+
+    private void add() {
+        if (Integer.parseInt(Objects.requireNonNull(passanger.getText()).toString()) < 0 || Integer.parseInt(passanger.getText().toString()) >= 19) {
+            if (Integer.parseInt(passanger.getText().toString()) < 0) {
+                passanger.setText(String.valueOf(0));
+            } else if (Integer.parseInt(passanger.getText().toString()) > 19) {
+                passanger.setText(String.valueOf(19));
+            } else passanger.setText("1");
+        } else {
+            int num = Integer.parseInt(passanger.getText().toString()) + 1;
+            passanger.setText(String.valueOf(num));
+        }
+    }
+
 
     public void datePickerDays() {
         CalendarConstraints.Builder calendarConstraints = new CalendarConstraints.Builder();
@@ -346,19 +352,16 @@ public class HomeFragment extends Fragment {
                         .build();
 
         dateRangePicker.show(getActivity().getSupportFragmentManager(), "datepicker");
-        dateRangePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
-            @Override
-            public void onPositiveButtonClick(Object selection) {
-                String fechas = selection.toString();
-                String fechasparser1 = fechas.substring(fechas.indexOf("{") + 1, fechas.indexOf("}"));
-                long depar = Long.parseLong(fechasparser1.substring(0, 13));
-                long volv = Long.parseLong(fechasparser1.substring(14));
-                Date dateDepar = new Date(depar);
-                Date datevolv = new Date(volv);
-                SimpleDateFormat df = new SimpleDateFormat("dd/MM/yy");
-                depart.setText(df.format(dateDepar));
-                volver.setText(df.format(datevolv));
-            }
+        dateRangePicker.addOnPositiveButtonClickListener(selection -> {
+            String fechas = selection.toString();
+            String fechasparser1 = fechas.substring(fechas.indexOf("{") + 1, fechas.indexOf("}"));
+            long depar = Long.parseLong(fechasparser1.substring(0, 13));
+            long volv = Long.parseLong(fechasparser1.substring(14));
+            Date dateDepar = new Date(depar);
+            Date datevolv = new Date(volv);
+            SimpleDateFormat df = new SimpleDateFormat("dd/MM/yy");
+            depart.setText(df.format(dateDepar));
+            volver.setText(df.format(datevolv));
         });
 
     }
@@ -374,20 +377,11 @@ public class HomeFragment extends Fragment {
                         .build();
 
         dateRangePicker.show(getActivity().getSupportFragmentManager(), "datepicker");
-        dateRangePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
-            @Override
-            public void onPositiveButtonClick(Object selection) {
-                long depar = Long.parseLong(selection.toString());
-                Date dateDepar = new Date(depar);
-                SimpleDateFormat df = new SimpleDateFormat("dd/MM/yy");
-                depart.setText(df.format(dateDepar));
-            }
+        dateRangePicker.addOnPositiveButtonClickListener(selection -> {
+            long depar = Long.parseLong(selection.toString());
+            Date dateDepar = new Date(depar);
+            SimpleDateFormat df = new SimpleDateFormat("dd/MM/yy");
+            depart.setText(df.format(dateDepar));
         });
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
     }
 }

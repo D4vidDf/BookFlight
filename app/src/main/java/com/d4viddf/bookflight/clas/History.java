@@ -27,13 +27,13 @@ public class History {
         this.timestamp = timestamp;
     }
 
-    public History(String tipo, String from, String to, String salida, String volver, String paradas, int pasajeros) {
+    public History(String tipo, String from, String to, String salida, String paradas, String identificador, int pasajeros) {
         this.tipo = tipo;
         this.from = from;
         this.to = to;
         this.salida = salida;
-        this.volver = volver;
         this.paradas = paradas;
+        this.identificador = identificador;
         this.pasajeros = pasajeros;
     }
 

@@ -51,7 +51,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         viewHolder.txtdesde.setText(lista.get(position).getFrom());
         viewHolder.txthacia.setText(lista.get(position).getTo());
         viewHolder.salida.setText(lista.get(position).getSalida());
-        if (lista.get(position).getVolver().isEmpty()) {
+        if (lista.get(position).getVolver() == null) {
             viewHolder.vuelta.setVisibility(View.INVISIBLE);
         } else{
             viewHolder.vuelta.setText(lista.get(position).getVolver());
@@ -65,6 +65,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
             intent.putExtra("state",true);
             intent.putExtra("identificador", lista.get(position).getIdentificador());
             activity.startActivity(intent);
+            activity.finish();
         });
 
     }

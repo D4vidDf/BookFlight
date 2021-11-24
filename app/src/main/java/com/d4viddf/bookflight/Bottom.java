@@ -48,9 +48,6 @@ public class Bottom extends AppCompatActivity {
         if (getIntent().getBooleanExtra("frg", false) == true){
             binding.navView.setSelectedItemId(R.id.navigation_reservations);
         }
-        if (getIntent().getStringExtra("identificador") != null) {
-            Log.i("identificador",getIntent().getStringExtra("identificador"));
-        }
 
 
     }

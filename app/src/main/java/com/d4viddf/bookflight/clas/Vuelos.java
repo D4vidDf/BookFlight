@@ -1,10 +1,16 @@
 package com.d4viddf.bookflight.clas;
 
 public class Vuelos {
-    String tipo, from, to, salida, volver, paradas;
+    String tipo, from, to, salida, volver, paradas, identificador;
     int pasajeros;
 
     public Vuelos(){}
+
+    public Vuelos(String tipo, String from, String to) {
+        this.tipo = tipo;
+        this.from = from;
+        this.to = to;
+    }
 
     public Vuelos(String ti, String fr, String t, String sal, String vol, String para, int pasa) {
         this.tipo = ti;
@@ -16,6 +22,24 @@ public class Vuelos {
         this.pasajeros = pasa;
     }
 
+    public Vuelos(String tipo, String from, String to, String salida, String volver, String paradas, String identificador, int pasajeros) {
+        this.tipo = tipo;
+        this.from = from;
+        this.to = to;
+        this.salida = salida;
+        this.volver = volver;
+        this.paradas = paradas;
+        this.identificador = identificador;
+        this.pasajeros = pasajeros;
+    }
+
+    public String getIdentificador() {
+        return identificador;
+    }
+
+    public void setIdentificador(String identificador) {
+        this.identificador = identificador;
+    }
 
     public String getTipo() {
         return tipo;

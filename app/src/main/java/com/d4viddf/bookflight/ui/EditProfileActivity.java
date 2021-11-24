@@ -14,6 +14,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
@@ -48,6 +49,7 @@ public class EditProfileActivity extends AppCompatActivity {
     Uri uri;
     Uri mage;
     Bitmap imagen;
+    CardView card;
     Boolean imagen_selected = false;
 
     @Override
@@ -61,7 +63,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+        card =  findViewById(R.id.loadedit);
         View views = new View(this);
         views.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
@@ -132,6 +134,7 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (imagen_selected) {
+                    card.setVisibility(View.VISIBLE);
                     StorageReference ref = storageReference.child("images/" + user.getUid() + UUID.randomUUID().toString());
 
                     // adding listeners on upload
@@ -141,6 +144,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         @Override
                         public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
                             if (!task.isSuccessful()) {
+                                card.setVisibility(View.GONE);
                                 throw task.getException();
                             }
                             return ref.getDownloadUrl();
@@ -158,15 +162,18 @@ public class EditProfileActivity extends AppCompatActivity {
                                 user.updateProfile(profileUpdates)
                                         .addOnCompleteListener(task1 -> {
                                             if (task1.isSuccessful()) {
+                                                card.setVisibility(View.GONE);
                                                 Log.d("TAG", "User profile updated.");
                                                 finish();
                                             }
                                         });
                             } else {
+                                card.setVisibility(View.GONE);
                             }
                         }
                     });
                 } else {
+                    card.setVisibility(View.VISIBLE);
                     UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                             .setDisplayName(usernamer.getText().toString())
                             .build();
@@ -175,6 +182,7 @@ public class EditProfileActivity extends AppCompatActivity {
                             .addOnCompleteListener(task1 -> {
                                 if (task1.isSuccessful()) {
                                     Log.d("TAG", "User profile updated.");
+                                    card.setVisibility(View.GONE);
                                     finish();
                                 }
                             });
