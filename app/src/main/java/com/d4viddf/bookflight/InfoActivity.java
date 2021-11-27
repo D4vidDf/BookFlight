@@ -2,12 +2,19 @@ package com.d4viddf.bookflight;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
+import android.annotation.SuppressLint;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.d4viddf.bookflight.clas.City;
@@ -26,6 +33,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -37,14 +45,26 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.UUID;
 
 public class InfoActivity extends AppCompatActivity implements OnMapReadyCallback {
     FirebaseDatabase database = FirebaseDatabase.getInstance("https://bookflight-d4viddf-default-rtdb.europe-west1.firebasedatabase.app");
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-    String desdeI, latI, longI, haciaI, ide, idv;
-    long disponibles, pasajeros;
+    String[] type = new String[]{"Turista", "Premium", "Business"};
+    Vuelos vuelos;
+
+    RelativeLayout card;
+    MaterialTextView txtCat;
+
+    String desdeI, latI, longI, haciaI, ide, idv,date;
+    long pasajeros;
+    Result value;
+    Date Startdate;
 
     FloatingActionButton main, edit, delete, noti;
     Float translationYaxis = 100f;
@@ -64,6 +84,9 @@ public class InfoActivity extends AppCompatActivity implements OnMapReadyCallbac
         MaterialToolbar appbar = findViewById(R.id.topAppBari);
         appbar.setNavigationOnClickListener(view -> finish());
 
+        card = findViewById(R.id.cardclass);
+        txtCat = findViewById(R.id.txtCat);
+
         TextView desde = findViewById(R.id.fromi);
         TextView hacia = findViewById(R.id.toi);
         TextView pasajero = findViewById(R.id.pasajeroi);
@@ -81,9 +104,10 @@ public class InfoActivity extends AppCompatActivity implements OnMapReadyCallbac
             Query query = myRef2.child(identificador);
 
             query.addValueEventListener(new ValueEventListener() {
+                @SuppressLint("ResourceAsColor")
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    Vuelos vuelos = snapshot.getValue(Vuelos.class);
+                    vuelos = snapshot.getValue(Vuelos.class);
                     if (vuelos != null) {
                         desdeI = vuelos.getFrom();
                         haciaI = vuelos.getTo();
@@ -97,6 +121,9 @@ public class InfoActivity extends AppCompatActivity implements OnMapReadyCallbac
                         ide = vuelos.getId();
                         idv = vuelos.getIdentificador();
                         pasajeros = vuelos.getPasajeros();
+                        date = vuelos.getSalida();
+
+                        txtCat.setText(vuelos.getCategory());
 
                         appbar.setTitle(vuelos.getFrom() + " - " + vuelos.getTo());
                         if (vuelos.getTipo().equalsIgnoreCase("ida")) {
@@ -117,7 +144,27 @@ public class InfoActivity extends AppCompatActivity implements OnMapReadyCallbac
                             img.setImageResource(R.drawable.nueva_york);
                         }
 
-                        getCity(identificador);
+                        if (vuelos.getCategory().equalsIgnoreCase("Turista")){
+                            card.setBackgroundColor(Color.rgb(50,153,168));
+
+                        } else if (vuelos.getCategory().equalsIgnoreCase("Premium")){
+                            card.setBackgroundColor(Color.rgb(200,154,34));
+
+                        } else {
+                            card.setBackgroundColor(Color.rgb(88,59,184));
+
+                        }
+
+                        SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yyyy");
+                        try {
+                            Startdate  = df2.parse(date);
+                            Log.i("calendario", Startdate.toString());
+
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        getCity();
                     }
 
                 }
@@ -156,27 +203,23 @@ public class InfoActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             materialAlertDialogBuilder.setTitle(getString(R.string.dialog_delete_reserve))
                     .setMessage(R.string.dialog_delete_reserve_message)
-                    .setNegativeButton(R.string.cancell, (dialogInterface, i) -> {
-                    })
-
-                    .setPositiveButton(R.string.buy, (dialogInterface, i) -> {
-                        DatabaseReference myRef1 = database.getReference("users").child(user.getUid());
-                        myRef1.child("reservas").child(ide).removeValue();
-
+                    .setPositiveButton(R.string.cancell, (dialogInterface, i) -> {
                         DatabaseReference myRef2 = database.getReference("Vuelos");
                         Query query = myRef2;
                         query.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot != null) {
+                                    for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                                        value = postSnapshot.getValue(Result.class);
+                                        if (value.getIdentificador().equalsIgnoreCase(idv)) {
+                                            value.setDisponibles(value.getDisponibles() + pasajeros);
 
-                                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
-                                    Result value = postSnapshot.getValue(Result.class);
-                                    if (value.getIdentificador().equalsIgnoreCase(idv)) {
-                                        disponibles = value.getDisponibles();
+                                        }
+
                                     }
-
+                                    database.getReference("Vuelos").child(idv).setValue(value);
                                 }
-
                             }
 
                             @Override
@@ -184,36 +227,90 @@ public class InfoActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                             }
                         });
-                        disponibles = disponibles + pasajeros;
-                        database.getReference("Vuelos").child(idv).setValue(disponibles);
+
+                        DatabaseReference myRef1 = database.getReference("users").child(user.getUid());
+                        myRef1.child("reservas").child(ide).removeValue();
                         finish();
-                    })
-                    .show();
+                    }).show();
 
         });
-
         noti.setOnClickListener(view -> {
+            materialAlertDialogBuilder.setTitle(getString(R.string.dialog_title_reminder))
+                    .setMessage(R.string.dialog_message_reminder)
+                    .setNegativeButton(R.string.cancell, (dialogInterface, i) -> {
+                    })
 
+                    .setPositiveButton(R.string.crear, (dialogInterface, i) -> {
+                        Calendar cal = Calendar.getInstance();
+                        cal.setTime(Startdate);
+                        cal.set(Calendar.HOUR_OF_DAY, 0);
+                        cal.set(Calendar.MINUTE, 0);
+                        cal.set(Calendar.SECOND, 0);
+                        cal.set(Calendar.MILLISECOND, 0);
+
+
+                        Intent intent = new Intent(Intent.ACTION_INSERT)
+                                .setData(CalendarContract.Events.CONTENT_URI)
+                                .putExtra(CalendarContract.Events.CALENDAR_ID, UUID.randomUUID())
+                                .putExtra(CalendarContract.Events.TITLE, String.valueOf("Viaje a "+haciaI))
+                                .putExtra(CalendarContract.Events.DESCRIPTION, "Salida del vuelo hacia "+haciaI)
+                                .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,cal.getTimeInMillis())
+                                .putExtra(CalendarContract.EXTRA_EVENT_END_TIME,cal.getTimeInMillis())
+                                .putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, false)
+                                .putExtra(CalendarContract.Events.EVENT_LOCATION, latI+", "+longI);
+                            startActivity(intent);
+
+                    }).show();
+        });
+        edit.setOnClickListener(view -> {
+            materialAlertDialogBuilder.setTitle(getString(R.string.dialog_title_type))
+                    .setSingleChoiceItems(type, 0, (dialogInterface, i) -> {
+                        if(i == 0) {
+                            vuelos.setCategory("Turista");
+                        }
+                        else if (i == 1) {
+                            vuelos.setCategory("Premium");
+                        }
+                        else if (i == 2) {
+                            vuelos.setCategory("Business");
+                        }
+                    })
+                    .setNegativeButton(R.string.cancell, (dialogInterface, i) -> {
+                    })
+                    .setPositiveButton(R.string.save, (dialogInterface, i) -> {
+                        DatabaseReference myRef1 = database.getReference("users").child(user.getUid());
+                        myRef1.child("reservas").child(ide).setValue(vuelos);
+                    }).show();
         });
     }
 
     private void closeMenu() {
         open = !open;
         main.setImageResource(R.drawable.ic_round_close_24);
-        edit.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(600).start();
+        main.animate().rotation(45f).setDuration(200).start();
+        edit.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
+        edit.setClickable(true);
+        edit.setFocusable(true);
         delete.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(400).start();
-        noti.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
+        delete.setClickable(true);
+        noti.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(600).start();
+        noti.setClickable(true);
     }
 
     private void openMenu() {
         open = !open;
         main.setImageResource(R.drawable.add);
-        edit.animate().translationY(translationYaxis).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
+        main.animate().rotation(0f).setDuration(200).start();
+        edit.animate().translationY(translationYaxis).alpha(0f).setInterpolator(interpolator).setDuration(600).start();
+        edit.setClickable(false);
+        edit.setFocusable(false);
         delete.animate().translationY(translationYaxis).alpha(0f).setInterpolator(interpolator).setDuration(400).start();
-        noti.animate().translationY(translationYaxis).alpha(0f).setInterpolator(interpolator).setDuration(600).start();
+        delete.setClickable(false);
+        noti.animate().translationY(translationYaxis).alpha(0f).setInterpolator(interpolator).setDuration(300).start();
+        noti.setClickable(false);
     }
 
-    private void getCity(String identificador) {
+    private void getCity() {
         DatabaseReference myRef2 = database.getReference("Citys");
         Query query = myRef2.child(desdeI);
 

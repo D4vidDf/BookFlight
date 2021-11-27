@@ -202,7 +202,6 @@ public class HomeFragment extends Fragment {
                 }
                 String id = UUID.randomUUID().toString();
                 history = new History(tipo, fr, hacia, des, hasta, para, id, pasa);
-                vul = new Vuelos(tipo, fr, hacia, des, hasta, para, pasa);
                 myRef.child("history").child(id).setValue(history);
                 myRef.child("history").child(id).child("timestamp").setValue(ServerValue.TIMESTAMP);
                 Intent intent = new Intent(getContext(), ResultsActivity.class);

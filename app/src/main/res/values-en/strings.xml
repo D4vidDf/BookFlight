@@ -60,4 +60,12 @@
     <string name="not_search_message">Please, fill in all the fields in order to proceed with the search. Please note that you have to set the number of passengers as well as the departure date.</string>
     <string name="not_search">Cannot be searched</string>
     <string name="no_reservations">You have not made a reservation yet</string>
+    <string name="edit_search">Edit</string>
+    <string name="dialog_delete_reserve_message">By confirming the cancellation of the reservation you will no longer be able to access the flight information. In case you want to travel again, after having canceled the reservation, you will have to buy the tickets again.</string>
+    <string name="dialog_title_reminder">Create reminder?</string>
+    <string name="dialog_delete_reserve">Cancel booking</string>
+    <string name="ubication">Airport location:</string>
+    <string name="dialog_message_reminder">By accepting you will save a reminder in the calendar.</string>
+    <string name="code_fly">Flight code</string>
+    <string name="crear">Create</string>
 </resources>

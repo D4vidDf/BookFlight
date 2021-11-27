@@ -187,6 +187,7 @@ public class ResultsActivity extends AppCompatActivity {
                                         vuelo.setVolver(r.getVuelta());
                                         vuelo.setPrecio(r.getPrecio());
                                         vuelo.setId(id1);
+                                        vuelo.setCategory("Turista");
                                         myReff.child("reservas").child(id1).setValue(vuelo);
                                         r.setDisponibles(r.getDisponibles() - pasa);
                                         database.getReference("Vuelos").child(r.getIdentificador()).setValue(r);

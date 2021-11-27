@@ -75,8 +75,14 @@
     <string name="not_search_message">Por favor, rellene todos los campos para realizar la búsqueda</string>
     <string name="code_fly">Código del vuelo</string>
     <string name="edit_search">Editar</string>
-    <string name="maps_key">AIzaSyDYhK74k55cJjzQe1SBigSKoUwaFKEBD7Q</string>
+    <string name="maps_key" translatable="false">AIzaSyDYhK74k55cJjzQe1SBigSKoUwaFKEBD7Q</string>
     <string name="ubication">Ubicación del aeropuerto</string>
     <string name="dialog_delete_reserve">Eliminar reserva</string>
     <string name="dialog_delete_reserve_message">Al confirmar la cancelación de la reserva ya no podrás acceder a la información del vuelo. En caso de que quieras volver a viajar después de haber cancelado la reserva, deberás volver a comprar los billetes.</string>
+    <string name="dialog_title_reminder">¿Crear recordatorio?</string>
+    <string name="dialog_message_reminder">Al aceptar guardarás un recordatorio en el calendario.</string>
+    <string name="crear">Crear</string>
+    <string name="save">Guardar</string>
+    <string name="dialog_title_type">Cambiar billete</string>
+    <string name="Clase">Categoría del billete</string>
 </resources>

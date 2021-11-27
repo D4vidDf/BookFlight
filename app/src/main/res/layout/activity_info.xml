@@ -96,17 +96,6 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/sc2"
-                            android:layout_alignParentEnd="true"
-                            android:orientation="horizontal">
-
-
-                        </LinearLayout>
-
-
-                        <LinearLayout
                             android:id="@+id/sc2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -190,6 +179,48 @@
                     map:uiZoomControls="true" />
             </com.google.android.material.card.MaterialCardView>
 
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextAppearance.Material3.HeadlineMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/Clase"
+                android:textStyle="bold" />
+
+            <com.google.android.material.card.MaterialCardView
+
+                style="@style/Widget.Material3.CardView.Elevated"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_margin="20dp"
+                app:cardCornerRadius="10dp">
+
+                <RelativeLayout
+                    android:id="@+id/cardclass"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="10dp">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/txtCat"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:fontFamily="@font/days_one"
+                            android:text="Turista"
+                            android:textColor="#ffffff"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
         </LinearLayout>
 
 
@@ -200,7 +231,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_margin="16dp"
         android:orientation="vertical">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -210,6 +240,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="5dp"
+            android:clickable="false"
             android:src="@drawable/ic_notifications_black_24dp"
             app:fabSize="mini" />
 
@@ -220,6 +251,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="5dp"
+            android:clickable="false"
+            android:labelFor="@id/noti_fab"
             android:src="@drawable/ic_round_delete_24"
             app:fabSize="mini" />
 
@@ -230,6 +263,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="5dp"
+            android:clickable="false"
             android:src="@drawable/ic_round_edit_24"
             app:fabSize="mini" />
 

@@ -1,10 +1,13 @@
 package com.d4viddf.bookflight.clas;
 
+import androidx.annotation.NonNull;
+
 public class Vuelos {
-    String tipo, from, to, salida, volver, paradas, identificador, precio,id;
+    String tipo, from, to, salida, volver, paradas, identificador, precio, id, category;
     int pasajeros;
 
-    public Vuelos(){}
+    public Vuelos() {
+    }
 
     public Vuelos(String tipo, String from, String to) {
         this.tipo = tipo;
@@ -12,14 +15,18 @@ public class Vuelos {
         this.to = to;
     }
 
-    public Vuelos(String ti, String fr, String t, String sal, String vol, String para, int pasa) {
-        this.tipo = ti;
-        this.from = fr;
-        this.to = t;
-        this.salida = sal;
-        this.volver = vol;
-        this.paradas = para;
-        this.pasajeros = pasa;
+    public Vuelos(String tipo, String from, String to, String salida, String volver, String paradas, String identificador, String precio, String id, String cateogry, int pasajeros) {
+        this.tipo = tipo;
+        this.from = from;
+        this.to = to;
+        this.salida = salida;
+        this.volver = volver;
+        this.paradas = paradas;
+        this.identificador = identificador;
+        this.precio = precio;
+        this.id = id;
+        this.category = cateogry;
+        this.pasajeros = pasajeros;
     }
 
     public Vuelos(String tipo, String from, String to, String salida, String volver, String paradas, String identificador, int pasajeros) {
@@ -111,5 +118,13 @@ public class Vuelos {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }
