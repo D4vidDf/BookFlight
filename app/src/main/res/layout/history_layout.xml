@@ -141,7 +141,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/search_but"
-        style="@style/Widget.Material3.Button.ElevatedButton"
+        style="@style/Widget.Material3.Button.ElevatedButton.Icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/card"
@@ -152,7 +152,20 @@
         android:layout_marginBottom="8dp"
         android:drawableEnd="@drawable/ic_round_keyboard_arrow_right_24"
         android:text="@string/search"
-        android:textAlignment="textEnd"
+        app:cornerRadius="10dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/edit_but"
+        style="@style/Widget.Material3.Button.ElevatedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/card"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_toStartOf="@id/search_but"
+        android:text="@string/edit_search"
         app:cornerRadius="10dp" />
 
 </RelativeLayout>

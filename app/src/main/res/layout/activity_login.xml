@@ -100,4 +100,29 @@
             app:cornerRadius="5dp" />
     </RelativeLayout>
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/loadl"
+        style="@style/Widget.Material3.CardView.Elevated"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:layout_margin="40dp"
+        android:elevation="20dp"
+        android:visibility="gone"
+        app:cardCornerRadius="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp">
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:indeterminate="true"
+                app:indicatorDirectionCircular="counterclockwise" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
 </RelativeLayout>

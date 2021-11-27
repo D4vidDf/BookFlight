@@ -8,6 +8,7 @@
     android:layout_marginStart="20dp"
     android:layout_marginEnd="20dp">
 
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card"
         style="@style/Widget.Material3.CardView.Elevated"
@@ -15,12 +16,21 @@
         android:layout_height="wrap_content"
         android:elevation="10dp"
         app:cardCornerRadius="10dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/code_fly"
+            style="@style/TextAppearance.Material3.TitleMedium"
+            android:textSize="20sp"
+            android:id="@+id/code"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <com.google.android.material.chip.ChipGroup
+                android:layout_below="@id/check"
                 android:id="@+id/constraint"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -50,6 +60,12 @@
                     app:chipCornerRadius="4dp"
                     app:chipIcon="@drawable/ic_round_airplanemode_active_24_arrive" />
             </com.google.android.material.chip.ChipGroup>
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                style="@style/Widget.Material3.CompoundButton.CheckBox"
+                android:id="@+id/check"/>
 
 
             <HorizontalScrollView
@@ -65,12 +81,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:padding="8dp"
+                    android:padding="6dp"
                     app:chipSpacingHorizontal="2dp">
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/tipoh"
-                        style="@style/Widget.Material3.Chip.Suggestion"
+                        android:checked="false"
+                        app:chipIcon="@drawable/ic_round_airlines_24"
+                        style="@style/Widget.Material3.Button.TonalButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/tipo" />
@@ -85,14 +103,6 @@
                         android:text="@string/companhia"
                         app:chipIcon="@drawable/ic_round_airlines_24" />
 
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/money"
-                        style="@style/Widget.Material3.Button.TonalButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="2dp"
-                        android:text="@string/precio"
-                        app:chipIcon="@drawable/ic_round_euro_24" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/pasajeroh"
@@ -106,6 +116,16 @@
 
                 </com.google.android.material.chip.ChipGroup>
             </HorizontalScrollView>
+            <com.google.android.material.chip.Chip
+                android:id="@+id/money"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sc"
+                android:layout_marginStart="6dp"
+                android:layout_marginBottom="4dp"
+                android:text="@string/precio"
+                app:chipIcon="@drawable/ic_round_euro_24" />
 
             <HorizontalScrollView
                 android:id="@+id/sc2"
@@ -120,6 +140,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginStart="6dp"
                     app:chipSpacingHorizontal="2dp">
 
                     <com.google.android.material.chip.Chip
@@ -128,7 +149,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_below="@id/sc"
-                        android:layout_marginStart="10dp"
                         android:text="@string/depart"
                         app:chipCornerRadius="4dp"
                         app:chipIcon="@drawable/ic_calendar_today_24" />

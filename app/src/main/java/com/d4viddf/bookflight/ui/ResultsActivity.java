@@ -9,10 +9,12 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.d4viddf.bookflight.R;
 import com.d4viddf.bookflight.adapters.HistoryAdapter;
@@ -23,6 +25,7 @@ import com.d4viddf.bookflight.clas.Vuelos;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -44,7 +47,10 @@ public class ResultsActivity extends AppCompatActivity {
     ResultsAdapter resultsAdapter;
     RecyclerView lview;
     ExtendedFloatingActionButton fab;
-    String from, to , ti;
+    String from, to, ti;
+    RelativeLayout re;
+    History histor;
+    int pasa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +83,7 @@ public class ResultsActivity extends AppCompatActivity {
 
         lista.clear();
 
+        re = findViewById(R.id.notfoundr);
         String id = getIntent().getStringExtra("id");
         Log.i("identificador", id);
 
@@ -87,21 +94,22 @@ public class ResultsActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                   History histor = postSnapshot.getValue(History.class);
-                    if (histor != null && histor.getIdentificador().equalsIgnoreCase(id)){
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    histor = postSnapshot.getValue(History.class);
+                    if (histor != null && histor.getIdentificador().equalsIgnoreCase(id)) {
                         from = histor.getFrom();
                         to = histor.getTo();
                         ti = histor.getTipo();
+                        pasa = histor.getPasajeros();
                     }
                 }
+
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
             }
         });
-
 
 
         lview = findViewById(R.id.list_resultsr);
@@ -117,11 +125,21 @@ public class ResultsActivity extends AppCompatActivity {
                 // whenever data at this location is updated.
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Result value = postSnapshot.getValue(Result.class);
+                    value.setIdentificador(postSnapshot.getKey());
+                    value.setSalida(histor.getSalida());
+                    value.setVuelta(histor.getVolver());
                     if (value.getDesde().equalsIgnoreCase(String.valueOf(from)) && value.getHacia().equalsIgnoreCase(to) && value.getTipo().equalsIgnoreCase(ti)) {
                         lista.add(value);
                     }
                     resultsAdapter.notifyDataSetChanged();
 
+                }
+                if (lista.isEmpty()){
+                    re.setVisibility(View.VISIBLE);
+                    fab.setVisibility(View.GONE);
+                } else {
+                    re.setVisibility(View.GONE);
+                    fab.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -144,17 +162,51 @@ public class ResultsActivity extends AppCompatActivity {
 
 
         });
+        MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(ResultsActivity.this);
+        fab.setOnClickListener(view1 -> {
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String id = UUID.randomUUID().toString();
-                Vuelos vuelo = new Vuelos();
-                //vul = new Vuelos(tipo, fr, hacia, des, para, pasa);
-                DatabaseReference myReff = database.getReference("users").child(currentUser.getUid());
-                myReff.child("reservas").child(id).setValue(vuelo);
-            }
-        });
+                    DatabaseReference myReff = database.getReference("users").child(currentUser.getUid());
+                    ArrayList<Result> checks = resultsAdapter.getChecked();
+                    Log.i("tamaño", String.valueOf(checks.size()));
+                    if (!checks.isEmpty()) {
+                        materialAlertDialogBuilder.setTitle(getString(R.string.dialog_buy))
+                                .setMessage(R.string.dialog_buy_message)
+                                .setNegativeButton(R.string.cancell, (dialogInterface, i) -> {
+                                })
+
+                                .setPositiveButton(R.string.buy, (dialogInterface, i) -> {
+                                    for (Result r : checks) {
+                                        String id1 = UUID.randomUUID().toString();
+                                        Vuelos vuelo = new Vuelos();
+                                        vuelo.setFrom(r.getDesde());
+                                        vuelo.setTo(r.getHacia());
+                                        vuelo.setPasajeros(pasa);
+                                        vuelo.setTipo(r.getTipo());
+                                        vuelo.setIdentificador(r.getIdentificador());
+                                        vuelo.setSalida(r.getSalida());
+                                        vuelo.setVolver(r.getVuelta());
+                                        vuelo.setPrecio(r.getPrecio());
+                                        vuelo.setId(id1);
+                                        myReff.child("reservas").child(id1).setValue(vuelo);
+                                        r.setDisponibles(r.getDisponibles() - pasa);
+                                        database.getReference("Vuelos").child(r.getIdentificador()).setValue(r);
+                                    }
+
+                                    finish();
+                                })
+                                .show();
+
+                    } else {
+                        materialAlertDialogBuilder.setTitle(getString(R.string.error))
+                                .setMessage(R.string.dialog_select_purchase)
+
+                                .setPositiveButton(R.string.accept, (dialogInterface, i) -> {
+
+                                })
+                                .show();
+                    }
+                }
+        );
 
     }
 }

@@ -24,6 +24,7 @@ import androidx.fragment.app.Fragment;
 
 import com.d4viddf.bookflight.R;
 import com.d4viddf.bookflight.clas.History;
+import com.d4viddf.bookflight.clas.Result;
 import com.d4viddf.bookflight.clas.Vuelos;
 import com.d4viddf.bookflight.databinding.FragmentHomeBinding;
 import com.d4viddf.bookflight.ui.HistoryActivity;
@@ -32,6 +33,7 @@ import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -175,7 +177,15 @@ public class HomeFragment extends Fragment {
             History history;
             String pal = "";
             //Tipo viaje roundtrip
-            if (round.isChecked()) {
+            if (from.getText().toString().isEmpty() || to.getText().toString().isEmpty() || depart.getText().toString().isEmpty() || passanger.getText().toString().equalsIgnoreCase("0")){
+                MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(getContext());
+                materialAlertDialogBuilder.setTitle(getString(R.string.not_search))
+                        .setMessage(R.string.not_search_message)
+                        .setPositiveButton(R.string.accept, (dialogInterface, i) -> {
+                        })
+                        .show();
+            }
+            else if (round.isChecked()) {
                 String fr = Objects.requireNonNull(from.getText()).toString();
                 String hacia = Objects.requireNonNull(to.getText()).toString();
                 String des = Objects.requireNonNull(depart.getText()).toString();
@@ -217,7 +227,6 @@ public class HomeFragment extends Fragment {
                 }
                 String id = UUID.randomUUID().toString();
                 history = new History(tipo, fr, hacia, des, para, id, pasa);
-                //vul = new Vuelos(tipo, fr, hacia, des, para, pasa);
                 myRef.child("history").child(id).setValue(history);
                 myRef.child("history").child(id).child("timestamp").setValue(ServerValue.TIMESTAMP);
                 Intent intent = new Intent(getContext(), ResultsActivity.class);
@@ -347,7 +356,7 @@ public class HomeFragment extends Fragment {
         MaterialDatePicker dateRangePicker =
                 MaterialDatePicker.Builder.dateRangePicker()
                         .setCalendarConstraints(calendarConstraints.build())
-                        .setTitleText("Selecciona las fechas")
+                        .setTitleText(R.string.select_dates)
                         .setTheme(R.style.Custom_MaterialCalendar_Fullscreen)
                         .build();
 
@@ -371,7 +380,7 @@ public class HomeFragment extends Fragment {
         calendarConstraints.setValidator(DateValidatorPointForward.now());
         MaterialDatePicker dateRangePicker =
                 MaterialDatePicker.Builder.datePicker()
-                        .setTitleText("Selecciona las fechas")
+                        .setTitleText(R.string.select_dates)
                         .setCalendarConstraints(calendarConstraints.build())
                         .setTheme(R.style.Custom_MaterialCalendar_Fullscreen)
                         .build();

@@ -1,7 +1,7 @@
 package com.d4viddf.bookflight.clas;
 
 public class Vuelos {
-    String tipo, from, to, salida, volver, paradas, identificador;
+    String tipo, from, to, salida, volver, paradas, identificador, precio,id;
     int pasajeros;
 
     public Vuelos(){}
@@ -95,5 +95,21 @@ public class Vuelos {
 
     public void setPasajeros(int pasajeros) {
         this.pasajeros = pasajeros;
+    }
+
+    public String getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(String precio) {
+        this.precio = precio;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

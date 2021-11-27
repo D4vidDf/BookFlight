@@ -16,12 +16,15 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.d4viddf.bookflight.R;
 import com.d4viddf.bookflight.clas.History;
+import com.d4viddf.bookflight.clas.Result;
 import com.d4viddf.bookflight.clas.Vuelos;
 import com.d4viddf.bookflight.adapters.HistoryAdapter;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -38,24 +41,17 @@ public class HistoryActivity extends AppCompatActivity {
     ArrayList<History> lista = new ArrayList<>();
     HistoryAdapter historyAdapter;
     RecyclerView lview;
+    RelativeLayout notfound;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
         MaterialToolbar appbar = (MaterialToolbar) findViewById(R.id.topAppBar);
-        appbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        appbar.setNavigationOnClickListener(view -> finish());
 
         appbar.inflateMenu(R.menu.history_menu);
-
-
-
-
 
         View view = new View(this);
         view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -66,12 +62,13 @@ public class HistoryActivity extends AppCompatActivity {
             // Apply the insets as padding to the view. Here we're setting all of the
             // dimensions, but apply as appropriate to your layout. You could also
             // update the views margin if more appropriate.
-            view.setPadding(0,insets.top,0,0);
+            view.setPadding(0, insets.top, 0, 0);
 
             // Return CONSUMED if we don't want the window insets to keep being passed
             // down to descendant views.
             return WindowInsetsCompat.CONSUMED;
         });
+        notfound = findViewById(R.id.notfound);
 
         lista.clear();
 
@@ -88,11 +85,18 @@ public class HistoryActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-            History value = postSnapshot.getValue(History.class);
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    History value = postSnapshot.getValue(History.class);
 
                     lista.add(value);
                     historyAdapter.notifyDataSetChanged();
+
+                }
+
+                if (lista.isEmpty()) {
+                    notfound.setVisibility(View.VISIBLE);
+                } else {
+                    notfound.setVisibility(View.GONE);
                 }
             }
 
@@ -100,21 +104,25 @@ public class HistoryActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError error) {
             }
         });
+        MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(HistoryActivity.this);
+        appbar.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.remove_history:
+                    FirebaseUser currentUser1 = FirebaseAuth.getInstance().getCurrentUser();
+                    DatabaseReference myRef1 = database.getReference("users").child(currentUser1.getUid());
+                    materialAlertDialogBuilder.setTitle(getString(R.string.delete_history))
+                            .setNegativeButton(R.string.cancell, (dialogInterface, i) -> {
+                            })
+                            .setPositiveButton(R.string.accept, (dialogInterface, i) -> {
+                                myRef1.child("history").removeValue();
+                                lista.clear();
+                                historyAdapter.notifyDataSetChanged();
+                            })
+                            .show();
+                    return true;
+                default:
+                    return false;
 
-        appbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.remove_history:
-                        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                        DatabaseReference myRef = database.getReference("users").child(currentUser.getUid());
-                        myRef.child("history").removeValue();
-                        lista.clear();
-                        historyAdapter.notifyDataSetChanged();
-                        return true;
-                    default: return  false;
-
-                }
             }
         });
     }

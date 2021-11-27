@@ -24,6 +24,7 @@
         <entry key="app/src/main/res/layout/activity_bottom.xml" value="0.21228070175438596" />
         <entry key="app/src/main/res/layout/activity_edit_profile.xml" value="0.3019775211980845" />
         <entry key="app/src/main/res/layout/activity_history.xml" value="0.2789473684210526" />
+        <entry key="app/src/main/res/layout/activity_info.xml" value="0.28808446455505277" />
         <entry key="app/src/main/res/layout/activity_loading_app.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.2644736842105263" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
@@ -34,8 +35,9 @@
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.18464912280701753" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.15964912280701754" />
+        <entry key="app/src/main/res/layout/fragment_reservations.xml" value="0.1631578947368421" />
         <entry key="app/src/main/res/layout/history_layout.xml" value="0.29078947368421054" />
-        <entry key="app/src/main/res/layout/reserva_layout.xml" value="0.25263157894736843" />
+        <entry key="app/src/main/res/layout/reserva_layout.xml" value="0.21739130434782608" />
         <entry key="app/src/main/res/layout/result_layout.xml" value="0.47782546494992845" />
         <entry key="app/src/main/res/layout/sample_my_view.xml" value="0.25263157894736843" />
         <entry key="app/src/main/res/layout/search_layout.xml" value="0.335" />

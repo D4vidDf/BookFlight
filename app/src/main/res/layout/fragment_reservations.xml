@@ -4,52 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.HistoryActivity">
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/topli"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topAppBar"
-            style="@style/Widget.Material3.AppBarLayout"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:textAlignment="center"
-
-            app:navigationIcon="@drawable/ic_round_arrow_back_ios_new_24"
-            app:title="@string/history"
-            app:titleCentered="true"
-            app:titleTextAppearance="@style/TextAppearance.Material3.HeadlineLarge" />
-    </com.google.android.material.appbar.AppBarLayout>
-
+    tools:context=".ui.reservations.ReservationsFragment">
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list_history"
+        android:id="@+id/list_reservas"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
-        android:layout_below="@id/topli" />
+        android:layout_height="match_parent"/>
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="80dp"
-        android:id="@+id/notfound"
-        android:visibility="gone"
+        android:id="@+id/notreserv"
         android:layout_centerInParent="true">
         <ImageView
             android:id="@+id/imghi"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_round_history_24"
+            android:src="@drawable/ic_round_airplanemode_active_24_depart"
             app:tint="@color/material_on_surface_emphasis_medium"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_below="@id/imghi"
-            android:text="@string/search_not_found"
+            android:text="@string/no_reservations"
             android:textAlignment="center"
             android:textStyle="bold"
             android:textAppearance="@style/TextAppearance.Material3.TitleLarge"

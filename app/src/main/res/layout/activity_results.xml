@@ -39,4 +39,30 @@
         android:layout_height="wrap_content"
         app:icon="@drawable/ic_round_shopping_cart_24"
         android:text="@string/comprar"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="80dp"
+        android:id="@+id/notfoundr"
+        android:visibility="gone"
+        android:layout_centerInParent="true">
+        <ImageView
+            android:id="@+id/imghi"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ic_round_search_24"
+            app:tint="@color/material_on_surface_emphasis_medium"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_below="@id/imghi"
+            android:text="@string/flight_not_found"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+            />
+    </RelativeLayout>
 </RelativeLayout>

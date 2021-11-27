@@ -39,4 +39,25 @@
     <string name="mtrl_picker_save">Save</string>
     <string name="mtrl_picker_text_input_date_range_start_hint">Depart</string>
     <string name="mtrl_picker_text_input_date_range_end_hint">Return</string>
+    <string name="comprar">Buy</string>
+    <string name="precio">Price</string>
+    <string name="companhia">Airline</string>
+    <string name="select_dates">Select dates</string>
+    <string name="invalid_email">Enter a valid email address</string>
+    <string name="invalid_passwords">The password must contain a minimum of 6 characters</string>
+    <string name="accept">Accept</string>
+    <string name="error_login_tittle">Failed to login</string>
+    <string name="error_login_message">The data entered is not correct. Check the information or create a new account.</string>
+    <string name="dialog_buy">Confirm purchase</string>
+    <string name="dialog_buy_message">By making the next purchase you are accepting the terms and conditions of BookFlight, as well as the treatment of the data to proceed with the reservation.</string>
+    <string name="cancell">Cancell</string>
+    <string name="buy">Purchase</string>
+    <string name="error">Select a flight</string>
+    <string name="dialog_select_purchase">To proceed with the reservation it is necessary that you select the bags you want to buy</string>
+    <string name="search_not_found">You have not done any search</string>
+    <string name="flight_not_found">No itineraries found</string>
+    <string name="delete_history">Clear History</string>
+    <string name="not_search_message">Please, fill in all the fields in order to proceed with the search. Please note that you have to set the number of passengers as well as the departure date.</string>
+    <string name="not_search">Cannot be searched</string>
+    <string name="no_reservations">You have not made a reservation yet</string>
 </resources>

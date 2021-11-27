@@ -53,6 +53,30 @@
     <string name="mtrl_picker_text_input_date_range_start_hint" description="Label for the start date in a range selected by the user [CHAR_LIMIT=60]">Salida</string>
     <string name="mtrl_picker_text_input_date_range_end_hint" description="Label for the end date in a range selected by the user [CHAR_LIMIT=60]">Vuelta</string>
     <string name="comprar">Comprar</string>
-    <string name="precio">Prevcio</string>
+    <string name="precio">Precio</string>
     <string name="companhia">Compañía</string>
+    <string name="select_dates">Selecciona las fechas</string>
+    <string name="invalid_email">Introduzca una dirección de correo electrónico válida</string>
+    <string name="invalid_passwords">La contraseña debe contener mínimo 6 caracteres</string>
+    <string name="error_login_tittle">Errror al iniciar sesión</string>
+    <string name="error_login_message">Los datos introducidos no son los correctos. Comprueba la información o cree una nueva cuenta.</string>
+    <string name="accept">Aceptar</string>
+    <string name="dialog_buy">Confirmar compra</string>
+    <string name="dialog_buy_message">Al realizar la siguiente compra estás aceptando los términos y condiciones de BookFlight, así como el tratamiento de los datos para proceder con la reserva.</string>
+    <string name="cancell">Cancelar</string>
+    <string name="buy">Comprar</string>
+    <string name="error">Selecciona un vuelo</string>
+    <string name="dialog_select_purchase">Para proceder con la reserva es necesario que selecciones aquellos cuelos que desees comprar</string>
+    <string name="search_not_found">No has realizado ninguna búsqueda</string>
+    <string name="flight_not_found">No se han encontrado itinerarios</string>
+    <string name="delete_history">Eliminar historial</string>
+    <string name="no_reservations">Aún no has realizado ninguna reserva</string>
+    <string name="not_search">No se puede buscar</string>
+    <string name="not_search_message">Por favor, rellene todos los campos para realizar la búsqueda</string>
+    <string name="code_fly">Código del vuelo</string>
+    <string name="edit_search">Editar</string>
+    <string name="maps_key">AIzaSyDYhK74k55cJjzQe1SBigSKoUwaFKEBD7Q</string>
+    <string name="ubication">Ubicación del aeropuerto</string>
+    <string name="dialog_delete_reserve">Eliminar reserva</string>
+    <string name="dialog_delete_reserve_message">Al confirmar la cancelación de la reserva ya no podrás acceder a la información del vuelo. En caso de que quieras volver a viajar después de haber cancelado la reserva, deberás volver a comprar los billetes.</string>
 </resources>

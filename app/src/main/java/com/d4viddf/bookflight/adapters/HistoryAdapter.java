@@ -18,6 +18,7 @@ import com.d4viddf.bookflight.Bottom;
 import com.d4viddf.bookflight.R;
 import com.d4viddf.bookflight.clas.History;
 import com.d4viddf.bookflight.clas.Vuelos;
+import com.d4viddf.bookflight.ui.ResultsActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.chip.Chip;
 
@@ -61,6 +62,12 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         viewHolder.trasbordos.setText(lista.get(position).getParadas());
 
         viewHolder.search.setOnClickListener(view -> {
+            Intent intent = new Intent(activity.getApplicationContext(), ResultsActivity.class);
+            intent.putExtra("id", lista.get(position).getIdentificador());
+            activity.startActivity(intent);
+        });
+
+        viewHolder.edit.setOnClickListener(view -> {
             Intent intent = new Intent(activity.getApplicationContext(), Bottom.class);
             intent.putExtra("state",true);
             intent.putExtra("identificador", lista.get(position).getIdentificador());
@@ -77,25 +84,27 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txtdesde;
-        TextView txthacia;
+        Chip txtdesde;
+        Chip txthacia;
         Chip salida;
         Chip vuelta;
         Chip pasajeros;
         Chip tipo_vuelo;
         Chip trasbordos;
         MaterialButton search;
+        MaterialButton edit;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             search = (MaterialButton) itemView.findViewById(R.id.search_but);
-            txtdesde = (TextView) itemView.findViewById(R.id.fromh);
-            txthacia = (TextView) itemView.findViewById(R.id.toh);
+            txtdesde = (Chip) itemView.findViewById(R.id.fromh);
+            txthacia = (Chip) itemView.findViewById(R.id.toh);
             salida = (Chip) itemView.findViewById(R.id.salidah);
             vuelta = (Chip) itemView.findViewById(R.id.llegadah);
             pasajeros = (Chip) itemView.findViewById(R.id.pasajeroh);
             tipo_vuelo = (Chip) itemView.findViewById(R.id.tipoh);
             trasbordos = (Chip) itemView.findViewById(R.id.transbordosh);
+            edit = (MaterialButton) itemView.findViewById(R.id.edit_but);
         }
     }
 }

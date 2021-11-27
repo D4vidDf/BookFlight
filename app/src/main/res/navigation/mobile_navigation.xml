@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/navigation_reservations"
-        android:name="com.d4viddf.bookflight.ui.notifications.NotificationsFragment"
+        android:name="com.d4viddf.bookflight.ui.reservations.ReservationsFragment"
         android:label="@string/reservas"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_reservations" />
 </navigation>

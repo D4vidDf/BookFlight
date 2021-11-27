@@ -59,44 +59,32 @@ public class ProfileFragment extends Fragment {
 
         history = root.findViewById(R.id.history);
 
-        history.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), HistoryActivity.class);
-                startActivity(intent);
-            }
+        history.setOnClickListener(view -> {
+            Intent intent = new Intent(getContext(), HistoryActivity.class);
+            startActivity(intent);
         });
 
         edit = root.findViewById(R.id.edit);
 
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), EditProfileActivity.class);
-                startActivity(intent);
-            }
+        edit.setOnClickListener(view -> {
+            Intent intent = new Intent(getContext(), EditProfileActivity.class);
+            startActivity(intent);
         });
 
         reservation = root.findViewById(R.id.resevas);
 
-        reservation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), Bottom.class);
-                intent.putExtra("frg", true);
-                startActivity(intent);
-            }
+        reservation.setOnClickListener(view -> {
+            Intent intent = new Intent(getContext(), Bottom.class);
+            intent.putExtra("frg", true);
+            startActivity(intent);
         });
 
         logout = root.findViewById(R.id.logout);
 
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mAuth.signOut();
-                Intent inte = new Intent(getContext(), LoginActivity.class);
-                startActivity(inte);
-            }
+        logout.setOnClickListener(view -> {
+            mAuth.signOut();
+            Intent inte = new Intent(getContext(), LoginActivity.class);
+            startActivity(inte);
         });
 
         if (user != null) {

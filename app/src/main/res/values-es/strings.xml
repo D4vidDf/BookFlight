@@ -39,4 +39,25 @@
     <string name="mtrl_picker_save">Guardar</string>
     <string name="mtrl_picker_text_input_date_range_start_hint">Salida</string>
     <string name="mtrl_picker_text_input_date_range_end_hint">Volver</string>
+    <string name="comprar">Comprar</string>
+    <string name="precio">Precio</string>
+    <string name="companhia">Compañía</string>
+    <string name="select_dates">Selecciona las fechas</string>
+    <string name="invalid_email">Introduzca una dirección de correo electrónico válida</string>
+    <string name="invalid_passwords">La contraseña debe contener mínimo 6 caracteres</string>
+    <string name="error_login_tittle">Errror al iniciar sesión</string>
+    <string name="accept">Aceptar</string>
+    <string name="error_login_message">Los datos introducidos no son los correctos. Comprueba la información o cree una nueva cuenta.</string>
+    <string name="dialog_buy">Confirmar compra</string>
+    <string name="dialog_buy_message">Al realizar la siguiente compra estás aceptando los términos y condiciones de BookFlight, así como el tratamiento de los datos para proceder con la reserva.</string>
+    <string name="cancell">Cancelar</string>
+    <string name="buy">Comprar</string>
+    <string name="error">Selecciona un vuelo</string>
+    <string name="dialog_select_purchase">Para proceder con la reserva es necesario que selecciones aquellos cuelos que desees comprar</string>
+    <string name="search_not_found">No has realizado ninguna búsqueda</string>
+    <string name="flight_not_found">No se han encontrado itinerarios</string>
+    <string name="delete_history">Vaciar historial</string>
+    <string name="no_reservations">Aún no has realizado ninguna reserva</string>
+    <string name="not_search">No se puede buscar</string>
+    <string name="not_search_message">Por favor, rellene todos los campos para poder proceder con la búsqueda. Tenga en cuenta que tiene que establecer el número de pasajaeros al igual que la fecha de salida.</string>
 </resources>

@@ -1,18 +1,19 @@
 package com.d4viddf.bookflight.clas;
 
 public class Result {
-    String tipo, desde, hacia,precio, identificador;
-    int asientos;
+    String tipo, desde, hacia,precio, identificador,salida,vuelta;
+    long asientos, position, disponibles;
 
     public Result() {
     }
 
-    public Result(String tipo, String desde, String hacia, String precio, int asientos) {
+    public Result(String tipo, String desde, String hacia, String precio, long asientos, long disponibles) {
         this.tipo = tipo;
         this.desde = desde;
         this.hacia = hacia;
         this.precio = precio;
         this.asientos = asientos;
+        this.disponibles = disponibles;
     }
 
     public String getTipo() {
@@ -55,11 +56,43 @@ public class Result {
         this.identificador = identificador;
     }
 
-    public int getAsientos() {
+    public long getAsientos() {
         return asientos;
     }
 
-    public void setAsientos(int asientos) {
+    public void setAsientos(long asientos) {
         this.asientos = asientos;
+    }
+
+    public String getSalida() {
+        return salida;
+    }
+
+    public void setSalida(String salida) {
+        this.salida = salida;
+    }
+
+    public String getVuelta() {
+        return vuelta;
+    }
+
+    public void setVuelta(String vuelta) {
+        this.vuelta = vuelta;
+    }
+
+    public long getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    public long getDisponibles() {
+        return disponibles;
+    }
+
+    public void setDisponibles(long disponibles) {
+        this.disponibles = disponibles;
     }
 }

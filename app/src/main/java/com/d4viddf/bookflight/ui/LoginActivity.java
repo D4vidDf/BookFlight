@@ -2,29 +2,37 @@ package com.d4viddf.bookflight.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.d4viddf.bookflight.Bottom;
 import com.d4viddf.bookflight.R;
+import com.d4viddf.bookflight.clas.Result;
+import com.d4viddf.bookflight.clas.Vuelos;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,48 +56,71 @@ public class LoginActivity extends AppCompatActivity {
             // down to descendant views.
             return WindowInsetsCompat.CONSUMED;
         });
-
         mAuth = FirebaseAuth.getInstance();
+
+        CardView card = (CardView) findViewById(R.id.loadl);
+
+        TextInputLayout emt = findViewById(R.id.emp);
+        TextInputLayout pas = findViewById(R.id.pam);
+
         TextInputEditText em = findViewById(R.id.email);
-        String email = em.getText().toString();
         TextInputEditText pa = findViewById(R.id.password);
-        String password = pa.getText().toString();
+
         MaterialButton iniciar = findViewById(R.id.login);
-        iniciar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (em.getText().toString().isEmpty() || pa.getText().toString().isEmpty()) {
-                    Toast.makeText(LoginActivity.this, "Por favor, rellene todos los campos", Toast.LENGTH_LONG);
-                } else {
-                    mAuth.signInWithEmailAndPassword(em.getText().toString(), pa.getText().toString())
-                            .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        FirebaseUser user = mAuth.getCurrentUser();
-                                        Intent act = new Intent(LoginActivity.this, Bottom.class);
-                                        startActivity(act);
-                                    } else {
-                                        // If sign in fails, display a message to the user.
-                                        Log.w("TAG", "signInWithEmail:failure", task.getException());
-                                        Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                                Toast.LENGTH_SHORT).show();
-                                    }
+        iniciar.setOnClickListener(view12 -> {
+            if (!isEmail(String.valueOf(em.getText()))){
+                emt.setError(getString(R.string.invalid_email));
+                if (!isPasswordValid(String.valueOf(pa.getText()))){
+                    pas.setErrorEnabled(true);
+                    pas.setError(getString(R.string.invalid_passwords));
+                } else pas.setErrorEnabled(false);
+            }
+            else if (!isPasswordValid(String.valueOf(pa.getText()))){
+                emt.setErrorEnabled(false);
+                pas.setErrorEnabled(true);
+                pas.setError(getString(R.string.invalid_password));
+            }
+            else {
+                card.setVisibility(View.VISIBLE);
+                emt.setErrorEnabled(false);
+                pas.setErrorEnabled(false);
+                mAuth.signInWithEmailAndPassword(em.getText().toString(), pa.getText().toString())
+                        .addOnCompleteListener(LoginActivity.this, task -> {
+                            if (task.isSuccessful()) {
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                Intent act = new Intent(LoginActivity.this, Bottom.class);
+                                card.setVisibility(View.GONE);
+                                startActivity(act);
+                            } else {
+                                card.setVisibility(View.GONE);
+                                MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(LoginActivity.this);
+                                materialAlertDialogBuilder.setTitle(getString(R.string.error_login_tittle))
+                                        .setMessage(R.string.error_login_message)
+                                        .setPositiveButton(R.string.accept, (dialogInterface, i) -> {
 
-                                }
-                            });
-                }
+                                        })
+                                        .show();
+                            }
 
+                        });
             }
         });
         MaterialButton reg = findViewById(R.id.register);
-        reg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent act = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(act);
-            }
+        reg.setOnClickListener(view1 -> {
+            Intent act = new Intent(LoginActivity.this, RegisterActivity.class);
+            startActivity(act);
         });
+    }
+
+    private boolean isPasswordValid(String password) {
+        if (password.length() >=6) return true;
+        return false;
+    }
+
+    private boolean isEmail(String text) {
+        if (text.contains("@")) return true;
+        else
+        return false;
     }
 
 }

@@ -7,7 +7,6 @@
     tools:context=".ui.RegisterActivity">
 
 
-
     <TextView
         android:id="@+id/tit"
         android:layout_width="wrap_content"
@@ -141,15 +140,16 @@
     </RelativeLayout>
 
     <androidx.cardview.widget.CardView
-        android:visibility="gone"
         android:id="@+id/load"
-        app:cardCornerRadius="10dp"
         style="@style/Widget.Material3.CardView.Elevated"
-        android:layout_centerInParent="true"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:layout_margin="40dp"
         android:elevation="20dp"
-        android:layout_margin="40dp">
+        android:visibility="gone"
+        app:cardCornerRadius="10dp">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"

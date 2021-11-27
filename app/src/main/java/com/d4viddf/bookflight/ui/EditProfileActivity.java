@@ -57,12 +57,7 @@ public class EditProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
         appbar = (MaterialToolbar) findViewById(R.id.topAppBar);
-        appbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        appbar.setNavigationOnClickListener(view -> finish());
         card =  findViewById(R.id.loadedit);
         View views = new View(this);
         views.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -86,36 +81,30 @@ public class EditProfileActivity extends AppCompatActivity {
 
         FloatingActionButton edit = findViewById(R.id.edit);
 
-        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-            @Override
-            public void onActivityResult(ActivityResult result) {
+        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
 
-                if (result.getResultCode() == RESULT_OK) {
-                    uri = result.getData().getData();
-                    try {
+            if (result.getResultCode() == RESULT_OK) {
+                uri = result.getData().getData();
+                try {
 
-                        imagen = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                    imagen = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
 
-                        imageView.setImageBitmap(imagen);
-                        imagen_selected = true;
+                    imageView.setImageBitmap(imagen);
+                    imagen_selected = true;
 
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-
             }
+
         });
 
         TextInputEditText em = findViewById(R.id.email);
         TextInputEditText um = findViewById(R.id.nombre);
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentimg = new Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                intentimg.setType("image/*");
-                activityResultLauncher.launch(intentimg);
-            }
+        edit.setOnClickListener(view -> {
+            Intent intentimg = new Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            intentimg.setType("image/*");
+            activityResultLauncher.launch(intentimg);
         });
         TextInputEditText usernamer = findViewById(R.id.nombre);
 
@@ -130,63 +119,54 @@ public class EditProfileActivity extends AppCompatActivity {
         }
 
         MaterialButton save = findViewById(R.id.save);
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (imagen_selected) {
-                    card.setVisibility(View.VISIBLE);
-                    StorageReference ref = storageReference.child("images/" + user.getUid() + UUID.randomUUID().toString());
+        save.setOnClickListener(view -> {
+            if (imagen_selected) {
+                card.setVisibility(View.VISIBLE);
+                StorageReference ref = storageReference.child("images/" + user.getUid() + UUID.randomUUID().toString());
 
-                    // adding listeners on upload
-                    // or failure of image
-                    UploadTask uploadTask = ref.putFile(uri);
-                    Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                        @Override
-                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                            if (!task.isSuccessful()) {
+                // adding listeners on upload
+                // or failure of image
+                UploadTask uploadTask = ref.putFile(uri);
+                Task<Uri> urlTask = uploadTask.continueWithTask(task -> {
+                    if (!task.isSuccessful()) {
+                        card.setVisibility(View.GONE);
+                        throw task.getException();
+                    }
+                    return ref.getDownloadUrl();
+                }).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        mage = task.getResult();
+                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                .setDisplayName(usernamer.getText().toString())
+                                .setPhotoUri(mage)
+                                .build();
+
+                        user.updateProfile(profileUpdates)
+                                .addOnCompleteListener(task1 -> {
+                                    if (task1.isSuccessful()) {
+                                        card.setVisibility(View.GONE);
+                                        Log.d("TAG", "User profile updated.");
+                                        finish();
+                                    }
+                                });
+                    } else {
+                        card.setVisibility(View.GONE);
+                    }
+                });
+            } else {
+                card.setVisibility(View.VISIBLE);
+                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                        .setDisplayName(usernamer.getText().toString())
+                        .build();
+
+                user.updateProfile(profileUpdates)
+                        .addOnCompleteListener(task1 -> {
+                            if (task1.isSuccessful()) {
+                                Log.d("TAG", "User profile updated.");
                                 card.setVisibility(View.GONE);
-                                throw task.getException();
+                                finish();
                             }
-                            return ref.getDownloadUrl();
-                        }
-                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Uri> task) {
-                            if (task.isSuccessful()) {
-                                mage = task.getResult();
-                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                        .setDisplayName(usernamer.getText().toString())
-                                        .setPhotoUri(mage)
-                                        .build();
-
-                                user.updateProfile(profileUpdates)
-                                        .addOnCompleteListener(task1 -> {
-                                            if (task1.isSuccessful()) {
-                                                card.setVisibility(View.GONE);
-                                                Log.d("TAG", "User profile updated.");
-                                                finish();
-                                            }
-                                        });
-                            } else {
-                                card.setVisibility(View.GONE);
-                            }
-                        }
-                    });
-                } else {
-                    card.setVisibility(View.VISIBLE);
-                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                            .setDisplayName(usernamer.getText().toString())
-                            .build();
-
-                    user.updateProfile(profileUpdates)
-                            .addOnCompleteListener(task1 -> {
-                                if (task1.isSuccessful()) {
-                                    Log.d("TAG", "User profile updated.");
-                                    card.setVisibility(View.GONE);
-                                    finish();
-                                }
-                            });
-                }
+                        });
             }
         });
 

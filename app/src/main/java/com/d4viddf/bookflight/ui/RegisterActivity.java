@@ -61,6 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
     CardView card;
     ActivityResultLauncher<Intent> activityResultLauncher;
     private DatabaseReference mDatabase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,25 +85,22 @@ public class RegisterActivity extends AppCompatActivity {
 
         mDatabase = FirebaseDatabase.getInstance("https://bookflight-d4viddf-default-rtdb.europe-west1.firebasedatabase.app").getReference();
         imageView = findViewById(R.id.profileImg);
-        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-            @Override
-            public void onActivityResult(ActivityResult result) {
+        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
 
-                if (result.getResultCode() == RESULT_OK) {
-                    uri = result.getData().getData();
-                    try {
+            if (result.getResultCode() == RESULT_OK) {
+                uri = result.getData().getData();
+                try {
 
-                        imagen = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                    imagen = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
 
-                        imageView.setImageBitmap(imagen);
-                        imagen_selected = true;
+                    imageView.setImageBitmap(imagen);
+                    imagen_selected = true;
 
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-
             }
+
         });
         card = findViewById(R.id.load);
         mAuth = FirebaseAuth.getInstance();
@@ -110,135 +108,109 @@ public class RegisterActivity extends AppCompatActivity {
         TextInputEditText em = findViewById(R.id.email);
         TextInputEditText pa = findViewById(R.id.password);
         MaterialButton iniciar = findViewById(R.id.login);
-        iniciar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentimg = new Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                intentimg.setType("image/*");
-                activityResultLauncher.launch(intentimg);
-            }
+        iniciar.setOnClickListener(view12 -> finish());
+        edit.setOnClickListener(view1 -> {
+            Intent intentimg = new Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            intentimg.setType("image/*");
+            activityResultLauncher.launch(intentimg);
         });
         TextInputEditText usernamer = findViewById(R.id.nombre);
         MaterialButton reg = findViewById(R.id.register);
-        reg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (em.getText().toString().isEmpty() || pa.getText().toString().isEmpty() || usernamer.getText().toString().isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Por favor, rellene todos los campos", Toast.LENGTH_LONG);
-                } else if (imagen_selected) {
-                    card.setVisibility(View.VISIBLE);
-                    mAuth.createUserWithEmailAndPassword(em.getText().toString(), pa.getText().toString())
-                            .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        // Sign in success, update UI with the signed-in user's information
-                                        Log.d("TAG", "signInWithEmail:success");
-                                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                        StorageReference ref = storageReference.child("images/" + mAuth.getUid() + UUID.randomUUID().toString());
+        reg.setOnClickListener(view13 -> {
+            if (em.getText().toString().isEmpty() || pa.getText().toString().isEmpty() || usernamer.getText().toString().isEmpty()) {
+                Toast.makeText(getApplicationContext(), "Por favor, rellene todos los campos", Toast.LENGTH_LONG);
+            } else if (imagen_selected) {
+                card.setVisibility(View.VISIBLE);
+                mAuth.createUserWithEmailAndPassword(em.getText().toString(), pa.getText().toString())
+                        .addOnCompleteListener(RegisterActivity.this, task -> {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d("TAG", "signInWithEmail:success");
+                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                StorageReference ref = storageReference.child("images/" + mAuth.getUid() + UUID.randomUUID().toString());
 
-                                        // adding listeners on upload
-                                        // or failure of image
-                                        UploadTask uploadTask = ref.putFile(uri);
-                                        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                                            @Override
-                                            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                                                if (!task.isSuccessful()) {
-                                                    throw task.getException();
-                                                }
-                                                return ref.getDownloadUrl();
-                                            }
-                                        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Uri> task) {
-                                                if (task.isSuccessful()) {
-                                                    mage = task.getResult();
-                                                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                                            .setDisplayName(usernamer.getText().toString())
-                                                            .setPhotoUri(mage)
-                                                            .build();
-
-                                                    user.updateProfile(profileUpdates)
-                                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                                @Override
-                                                                public void onComplete(@NonNull Task<Void> task) {
-                                                                    if (task.isSuccessful()) {
-                                                                        Log.d("TAG", "User profile updated.");
-                                                                    }
-                                                                }
-                                                            });
-                                                    User user = new User(usernamer.getText().toString(), em.getText().toString());
-
-                                                    mDatabase.child("users").child(mAuth.getUid()).setValue(user);
-
-                                                    Intent act = new Intent(RegisterActivity.this, Bottom.class);
-                                                    card.setVisibility(View.GONE);
-                                                    startActivity(act);
-                                                } else {
-                                                }
-                                            }
-                                        });
-
-
-                                    } else {
-                                        // If sign in fails, display a message to the user.
-                                        Log.w("TAG", "signInWithEmail:failure", task.getException());
-                                        Toast.makeText(getApplicationContext(), "Authentication failed.",
-                                                Toast.LENGTH_SHORT).show();
-                                        card.setVisibility(View.GONE);
+                                // adding listeners on upload
+                                // or failure of image
+                                UploadTask uploadTask = ref.putFile(uri);
+                                Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                                    @Override
+                                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                                        if (!task.isSuccessful()) {
+                                            throw task.getException();
+                                        }
+                                        return ref.getDownloadUrl();
                                     }
-                                }
-                            });
-                } else {
-                    card.setVisibility(View.VISIBLE);
-                    mAuth.createUserWithEmailAndPassword(em.getText().toString(), pa.getText().toString())
-                            .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        // Sign in success, update UI with the signed-in user's information
-                                        Log.d("TAG", "signInWithEmail:success");
-                                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
+                                }).addOnCompleteListener(task12 -> {
+                                    if (task12.isSuccessful()) {
+                                        mage = task12.getResult();
                                         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                                 .setDisplayName(usernamer.getText().toString())
+                                                .setPhotoUri(mage)
                                                 .build();
 
                                         user.updateProfile(profileUpdates)
-                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        if (task.isSuccessful()) {
-                                                            Log.d("TAG", "User profile updated.");
-                                                        }
+                                                .addOnCompleteListener(task1 -> {
+                                                    if (task1.isSuccessful()) {
+                                                        Log.d("TAG", "User profile updated.");
                                                     }
                                                 });
-                                        User users = new User(usernamer.getText().toString(), em.getText().toString());
+                                        User user1 = new User(usernamer.getText().toString(), em.getText().toString());
 
-                                        mDatabase.child("users").child(mAuth.getUid().toString()).setValue(users);
+                                        mDatabase.child("users").child(mAuth.getUid()).setValue(user1);
 
                                         Intent act = new Intent(RegisterActivity.this, Bottom.class);
                                         card.setVisibility(View.GONE);
                                         startActivity(act);
-
                                     } else {
-                                        // If sign in fails, display a message to the user.
-                                        Log.w("TAG", "signInWithEmail:failure", task.getException());
-                                        Toast.makeText(getApplicationContext(), "Authentication failed.",
-                                                Toast.LENGTH_SHORT).show();
-                                        card.setVisibility(View.GONE);
                                     }
-                                }
-                            });
-                }
+                                });
 
+
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w("TAG", "signInWithEmail:failure", task.getException());
+                                Toast.makeText(getApplicationContext(), "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
+                                card.setVisibility(View.GONE);
+                            }
+                        });
+            } else {
+                card.setVisibility(View.VISIBLE);
+                mAuth.createUserWithEmailAndPassword(em.getText().toString(), pa.getText().toString())
+                        .addOnCompleteListener(RegisterActivity.this, task -> {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d("TAG", "signInWithEmail:success");
+                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                        .setDisplayName(usernamer.getText().toString())
+                                        .build();
+
+                                user.updateProfile(profileUpdates)
+                                        .addOnCompleteListener(task13 -> {
+                                            if (task13.isSuccessful()) {
+                                                Log.d("TAG", "User profile updated.");
+                                            }
+                                        });
+                                User users = new User(usernamer.getText().toString(), em.getText().toString());
+
+                                mDatabase.child("users").child(mAuth.getUid().toString()).setValue(users);
+
+                                Intent act = new Intent(RegisterActivity.this, Bottom.class);
+                                card.setVisibility(View.GONE);
+                                startActivity(act);
+
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w("TAG", "signInWithEmail:failure", task.getException());
+                                Toast.makeText(getApplicationContext(), "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
+                                card.setVisibility(View.GONE);
+                            }
+                        });
             }
+
         });
     }
 }
