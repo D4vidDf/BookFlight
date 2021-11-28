@@ -68,4 +68,8 @@
     <string name="dialog_title_reminder">¿Crear recordatorio?</string>
     <string name="dialog_message_reminder">Al aceptar guardarás un recordatorio en el calendario.</string>
     <string name="crear">Crear</string>
+    <string name="save">Guardar</string>
+    <string name="dialog_title_type">Actualizar billete</string>
+    <string name="Clase">Categoría del billete</string>
+    <string name="turista">Turista</string>
 </resources>

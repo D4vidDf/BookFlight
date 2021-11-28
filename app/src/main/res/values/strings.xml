@@ -85,4 +85,5 @@
     <string name="save">Guardar</string>
     <string name="dialog_title_type">Cambiar billete</string>
     <string name="Clase">Categoría del billete</string>
+    <string name="turista">Turista</string>
 </resources>

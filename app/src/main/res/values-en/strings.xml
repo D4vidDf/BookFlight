@@ -68,4 +68,8 @@
     <string name="dialog_message_reminder">By accepting you will save a reminder in the calendar.</string>
     <string name="code_fly">Flight code</string>
     <string name="crear">Create</string>
+    <string name="save">Save</string>
+    <string name="dialog_title_type">Update ticket</string>
+    <string name="Clase">Ticket category</string>
+    <string name="turista">Tourist</string>
 </resources>

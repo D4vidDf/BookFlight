@@ -49,13 +49,13 @@
                     <ImageView
                         android:id="@+id/thumbnail"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
+                        android:layout_height="240dp"
                         android:scaleType="centerCrop"
                         tools:ignore="ContentDescription" />
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
+                        android:layout_height="240dp"
                         android:src="@drawable/gradient"
                         tools:ignore="ContentDescription" />
 
@@ -162,7 +162,8 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                style="@style/Widget.Material3.CardView.Elevated"
+                android:layout_height="240dp"
                 android:layout_margin="20dp"
                 app:cardCornerRadius="10dp">
 
@@ -213,7 +214,7 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
                             android:fontFamily="@font/days_one"
-                            android:text="Turista"
+                            android:text="@string/turista"
                             android:textColor="#ffffff"
                             android:textSize="24sp"
                             android:textStyle="bold" />
