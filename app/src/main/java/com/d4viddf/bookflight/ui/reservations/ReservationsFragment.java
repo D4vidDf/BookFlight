@@ -16,11 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.d4viddf.bookflight.R;
 import com.d4viddf.bookflight.adapters.ReservationsAdapter;
-import com.d4viddf.bookflight.adapters.ResultsAdapter;
-import com.d4viddf.bookflight.clas.Result;
 import com.d4viddf.bookflight.clas.Vuelos;
 import com.d4viddf.bookflight.databinding.FragmentReservationsBinding;
-import com.d4viddf.bookflight.ui.ResultsActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

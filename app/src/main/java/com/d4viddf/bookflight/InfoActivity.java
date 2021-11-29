@@ -1,11 +1,6 @@
 package com.d4viddf.bookflight;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,20 +12,19 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.d4viddf.bookflight.clas.City;
-import com.d4viddf.bookflight.clas.History;
 import com.d4viddf.bookflight.clas.Result;
 import com.d4viddf.bookflight.clas.Vuelos;
-import com.d4viddf.bookflight.ui.ResultsActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.chip.Chip;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textview.MaterialTextView;
@@ -42,8 +36,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -63,7 +55,7 @@ public class InfoActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     String desdeI, latI, longI, haciaI, ide, idv,date;
     long pasajeros;
-    Result value;
+    Result value, updated;
     Date Startdate;
 
     FloatingActionButton main, edit, delete, noti;
@@ -196,7 +188,7 @@ public class InfoActivity extends AppCompatActivity implements OnMapReadyCallbac
         main.setOnClickListener(view -> {
             if (open) {
                 openMenu();
-            } else closeMenu();
+            } else if (!open) closeMenu();
         });
         MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(InfoActivity.this);
         delete.setOnClickListener(view -> {
@@ -213,13 +205,13 @@ public class InfoActivity extends AppCompatActivity implements OnMapReadyCallbac
                                     for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                                         value = postSnapshot.getValue(Result.class);
                                         if (value.getIdentificador().equalsIgnoreCase(idv)) {
-                                            value.setDisponibles(value.getDisponibles() + pasajeros);
-
+                                            updated = value;
                                         }
 
                                     }
-                                    database.getReference("Vuelos").child(idv).setValue(value);
+
                                 }
+
                             }
 
                             @Override
@@ -227,6 +219,12 @@ public class InfoActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                             }
                         });
+                        if (updated !=null){
+                            long pas = updated.getDisponibles() + pasajeros;
+                            updated.setDisponibles(pas);
+                            database.getReference("Vuelos").child(idv).setValue(updated);
+                        }
+
 
                         DatabaseReference myRef1 = database.getReference("users").child(user.getUid());
                         myRef1.child("reservas").child(ide).removeValue();
@@ -263,7 +261,8 @@ public class InfoActivity extends AppCompatActivity implements OnMapReadyCallbac
                     }).show();
         });
         edit.setOnClickListener(view -> {
-            materialAlertDialogBuilder.setTitle(getString(R.string.dialog_title_type))
+            MaterialAlertDialogBuilder materialAlertDialogBuilderEdit = new MaterialAlertDialogBuilder(InfoActivity.this);
+            materialAlertDialogBuilderEdit.setTitle(getString(R.string.dialog_title_type))
                     .setSingleChoiceItems(type, 0, (dialogInterface, i) -> {
                         if(i == 0) {
                             vuelos.setCategory("Turista");
@@ -303,7 +302,7 @@ public class InfoActivity extends AppCompatActivity implements OnMapReadyCallbac
         main.animate().rotation(0f).setDuration(200).start();
         edit.animate().translationY(translationYaxis).alpha(0f).setInterpolator(interpolator).setDuration(600).start();
         edit.setClickable(false);
-        edit.setFocusable(false);
+        edit.setFocusable(true);
         delete.animate().translationY(translationYaxis).alpha(0f).setInterpolator(interpolator).setDuration(400).start();
         delete.setClickable(false);
         noti.animate().translationY(translationYaxis).alpha(0f).setInterpolator(interpolator).setDuration(300).start();

@@ -6,18 +6,13 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.d4viddf.bookflight.Bottom;
 import com.d4viddf.bookflight.R;
 import com.d4viddf.bookflight.clas.History;
-import com.d4viddf.bookflight.clas.Vuelos;
 import com.d4viddf.bookflight.ui.ResultsActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.chip.Chip;

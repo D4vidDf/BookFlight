@@ -24,7 +24,6 @@ import androidx.fragment.app.Fragment;
 
 import com.d4viddf.bookflight.R;
 import com.d4viddf.bookflight.clas.History;
-import com.d4viddf.bookflight.clas.Result;
 import com.d4viddf.bookflight.clas.Vuelos;
 import com.d4viddf.bookflight.databinding.FragmentHomeBinding;
 import com.d4viddf.bookflight.ui.HistoryActivity;
@@ -32,7 +31,6 @@ import com.d4viddf.bookflight.ui.ResultsActivity;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
-import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputEditText;
@@ -47,7 +45,6 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
-import java.net.Inet4Address;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;

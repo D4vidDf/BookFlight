@@ -58,12 +58,7 @@ public class ResultsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_results);
 
         MaterialToolbar appbar = (MaterialToolbar) findViewById(R.id.topAppBarr);
-        appbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        appbar.setNavigationOnClickListener(view -> finish());
 
         View view = new View(this);
         view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -123,6 +118,7 @@ public class ResultsActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
+                lista.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Result value = postSnapshot.getValue(Result.class);
                     value.setIdentificador(postSnapshot.getKey());

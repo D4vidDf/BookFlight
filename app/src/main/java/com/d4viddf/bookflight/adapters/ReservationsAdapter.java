@@ -1,12 +1,8 @@
 package com.d4viddf.bookflight.adapters;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.d4viddf.bookflight.InfoActivity;
 import com.d4viddf.bookflight.R;
-import com.d4viddf.bookflight.clas.Result;
 import com.d4viddf.bookflight.clas.Vuelos;
-import com.google.android.material.checkbox.MaterialCheckBox;
-import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
 

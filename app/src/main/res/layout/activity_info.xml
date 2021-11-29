@@ -49,13 +49,13 @@
                     <ImageView
                         android:id="@+id/thumbnail"
                         android:layout_width="match_parent"
-                        android:layout_height="240dp"
+                        android:layout_height="200dp"
                         android:scaleType="centerCrop"
                         tools:ignore="ContentDescription" />
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="240dp"
+                        android:layout_height="200dp"
                         android:src="@drawable/gradient"
                         tools:ignore="ContentDescription" />
 
@@ -167,9 +167,7 @@
                 android:layout_margin="20dp"
                 app:cardCornerRadius="10dp">
 
-                <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:map="http://schemas.android.com/apk/res-auto"
-                    xmlns:tools="http://schemas.android.com/tools"
+                <fragment xmlns:map="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/map"
                     android:name="com.google.android.gms.maps.SupportMapFragment"
                     android:layout_width="match_parent"
@@ -242,6 +240,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="5dp"
             android:clickable="false"
+            android:focusable="true"
             android:src="@drawable/ic_notifications_black_24dp"
             app:fabSize="mini" />
 
@@ -253,6 +252,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="5dp"
             android:clickable="false"
+            android:focusable="true"
             android:labelFor="@id/noti_fab"
             android:src="@drawable/ic_round_delete_24"
             app:fabSize="mini" />
@@ -265,6 +265,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="5dp"
             android:clickable="false"
+            android:focusable="true"
             android:src="@drawable/ic_round_edit_24"
             app:fabSize="mini" />
 

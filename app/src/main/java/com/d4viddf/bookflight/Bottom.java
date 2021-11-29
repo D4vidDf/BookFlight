@@ -2,21 +2,16 @@ package com.d4viddf.bookflight;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.View;
-
-import com.d4viddf.bookflight.ui.LoadingApp;
-import com.d4viddf.bookflight.ui.LoginActivity;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.d4viddf.bookflight.databinding.ActivityBottomBinding;
+import com.d4viddf.bookflight.ui.LoginActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 

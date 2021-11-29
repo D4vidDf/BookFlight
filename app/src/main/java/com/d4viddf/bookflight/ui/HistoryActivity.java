@@ -1,28 +1,19 @@
 package com.d4viddf.bookflight.ui;
 
+import android.os.Bundle;
+import android.view.View;
+import android.widget.RelativeLayout;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.menu.MenuBuilder;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.RelativeLayout;
-
 import com.d4viddf.bookflight.R;
-import com.d4viddf.bookflight.clas.History;
-import com.d4viddf.bookflight.clas.Result;
-import com.d4viddf.bookflight.clas.Vuelos;
 import com.d4viddf.bookflight.adapters.HistoryAdapter;
+import com.d4viddf.bookflight.clas.History;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
