@@ -1,7 +1,6 @@
 package com.d4viddf.bookflight.adapters;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,21 +12,15 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.d4viddf.bookflight.InfoActivity;
 import com.d4viddf.bookflight.R;
 import com.d4viddf.bookflight.clas.Vuelos;
+import com.d4viddf.bookflight.ui.InfoActivity;
 
 import java.util.ArrayList;
 
 public class ReservationsAdapter extends RecyclerView.Adapter<ReservationsAdapter.ViewHolder> {
     FragmentActivity activity;
-    Context context;
-    private ArrayList<Vuelos> lista;
-
-    public ReservationsAdapter(Context context, ArrayList<Vuelos> lista) {
-        this.context = context;
-        this.lista = lista;
-    }
+    private final ArrayList<Vuelos> lista;
 
     public ReservationsAdapter(FragmentActivity activity, ArrayList<Vuelos> lista) {
         this.activity = activity;
@@ -91,10 +84,10 @@ public class ReservationsAdapter extends RecyclerView.Adapter<ReservationsAdapte
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            txthacia = (TextView) itemView.findViewById(R.id.tor);
-            salida = (TextView) itemView.findViewById(R.id.salidar);
-            vuelta = (TextView) itemView.findViewById(R.id.llegadar);
-            img = (ImageView) itemView.findViewById(R.id.port);
+            txthacia = itemView.findViewById(R.id.tor);
+            salida = itemView.findViewById(R.id.salidar);
+            vuelta = itemView.findViewById(R.id.llegadar);
+            img = itemView.findViewById(R.id.port);
         }
     }
 

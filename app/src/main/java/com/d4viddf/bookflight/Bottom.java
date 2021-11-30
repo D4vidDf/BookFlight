@@ -16,7 +16,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class Bottom extends AppCompatActivity {
-    private FirebaseAuth mAuth;
     private ActivityBottomBinding binding;
 
     @Override
@@ -40,7 +39,7 @@ public class Bottom extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_bottom);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-        if (getIntent().getBooleanExtra("frg", false) == true){
+        if (getIntent().getBooleanExtra("frg", false)){
             binding.navView.setSelectedItemId(R.id.navigation_reservations);
         }
 
@@ -53,9 +52,7 @@ public class Bottom extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        if (currentUser != null) {
-
-        } else{
+        if (currentUser == null) {
             Intent mainIntent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(mainIntent);
             finish();

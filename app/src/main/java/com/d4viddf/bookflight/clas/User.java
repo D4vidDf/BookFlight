@@ -1,4 +1,4 @@
-package com.d4viddf.bookflight;
+package com.d4viddf.bookflight.clas;
 
 public class User {
 

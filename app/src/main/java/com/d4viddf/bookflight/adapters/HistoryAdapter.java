@@ -1,7 +1,7 @@
 package com.d4viddf.bookflight.adapters;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,13 +21,7 @@ import java.util.ArrayList;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
     Activity activity;
-    Context context;
-    private ArrayList<History> lista;
-
-    public HistoryAdapter(Context context, ArrayList<History> lista) {
-        this.context = context;
-        this.lista = lista;
-    }
+    private final ArrayList<History> lista;
 
     public HistoryAdapter(Activity activity, ArrayList<History> lista) {
         this.activity = activity;
@@ -42,6 +36,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         return new HistoryAdapter.ViewHolder(v);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         viewHolder.txtdesde.setText(lista.get(position).getFrom());
@@ -91,15 +86,15 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            search = (MaterialButton) itemView.findViewById(R.id.search_but);
-            txtdesde = (Chip) itemView.findViewById(R.id.fromh);
-            txthacia = (Chip) itemView.findViewById(R.id.toh);
-            salida = (Chip) itemView.findViewById(R.id.salidah);
-            vuelta = (Chip) itemView.findViewById(R.id.llegadah);
-            pasajeros = (Chip) itemView.findViewById(R.id.pasajeroh);
-            tipo_vuelo = (Chip) itemView.findViewById(R.id.tipoh);
-            trasbordos = (Chip) itemView.findViewById(R.id.transbordosh);
-            edit = (MaterialButton) itemView.findViewById(R.id.edit_but);
+            search = itemView.findViewById(R.id.search_but);
+            txtdesde = itemView.findViewById(R.id.fromh);
+            txthacia = itemView.findViewById(R.id.toh);
+            salida = itemView.findViewById(R.id.salidah);
+            vuelta = itemView.findViewById(R.id.llegadah);
+            pasajeros = itemView.findViewById(R.id.pasajeroh);
+            tipo_vuelo = itemView.findViewById(R.id.tipoh);
+            trasbordos = itemView.findViewById(R.id.transbordosh);
+            edit = itemView.findViewById(R.id.edit_but);
         }
     }
 }

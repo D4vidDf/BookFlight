@@ -11,7 +11,6 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
@@ -21,8 +20,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.d4viddf.bookflight.Bottom;
 import com.d4viddf.bookflight.R;
-import com.d4viddf.bookflight.User;
-import com.google.android.gms.tasks.Continuation;
+import com.d4viddf.bookflight.clas.User;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;

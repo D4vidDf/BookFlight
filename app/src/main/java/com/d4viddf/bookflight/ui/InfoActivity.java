@@ -1,4 +1,4 @@
-package com.d4viddf.bookflight;
+package com.d4viddf.bookflight.ui;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.d4viddf.bookflight.R;
 import com.d4viddf.bookflight.clas.City;
 import com.d4viddf.bookflight.clas.Result;
 import com.d4viddf.bookflight.clas.Vuelos;

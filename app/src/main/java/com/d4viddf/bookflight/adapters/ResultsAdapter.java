@@ -2,7 +2,6 @@ package com.d4viddf.bookflight.adapters;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.res.Resources;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,14 +21,8 @@ import java.util.ArrayList;
 
 public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHolder> {
     Activity activity;
-    Context context;
-    private ArrayList<Result> lista;
-    private ArrayList<Result> checked = new ArrayList<>();
-
-    public ResultsAdapter(Context context, ArrayList<Result> lista) {
-        this.context = context;
-        this.lista = lista;
-    }
+    private final ArrayList<Result> lista;
+    private final ArrayList<Result> checked = new ArrayList<>();
 
     public ResultsAdapter(Activity activity, ArrayList<Result> lista) {
         this.activity = activity;
@@ -44,6 +37,7 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHold
         return new ResultsAdapter.ViewHolder(v);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, @SuppressLint("RecyclerView") int position) {
 
@@ -61,11 +55,11 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHold
 
         viewHolder.check.setOnCheckedChangeListener((compoundButton, b) -> {
             if (compoundButton.isChecked()) {
-                Result r = (Result) lista.get(position);
+                Result r = lista.get(position);
                 checked.add(r);
                 Log.i("Lista", String.valueOf(checked.size()));
             } else if (!compoundButton.isChecked()) {
-                Result r = (Result) lista.get(position);
+                Result r = lista.get(position);
                 checked.remove(r);
                 Log.i("Lista", String.valueOf(checked.size()));
             }
@@ -94,15 +88,15 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHold
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             resource = itemView.getResources();
-            id = (TextView) itemView.findViewById(R.id.code);
-            txtdesde = (Chip) itemView.findViewById(R.id.fromh);
-            txthacia = (Chip) itemView.findViewById(R.id.toh);
-            salida = (Chip) itemView.findViewById(R.id.salidah);
-            vuelta = (Chip) itemView.findViewById(R.id.llegadah);
-            pasajeros = (Chip) itemView.findViewById(R.id.pasajeroh);
-            tipo_vuelo = (Chip) itemView.findViewById(R.id.tipoh);
-            money = (Chip) itemView.findViewById(R.id.money);
-            check = (MaterialCheckBox) itemView.findViewById(R.id.check);
+            id = itemView.findViewById(R.id.code);
+            txtdesde = itemView.findViewById(R.id.fromh);
+            txthacia = itemView.findViewById(R.id.toh);
+            salida = itemView.findViewById(R.id.salidah);
+            vuelta = itemView.findViewById(R.id.llegadah);
+            pasajeros = itemView.findViewById(R.id.pasajeroh);
+            tipo_vuelo = itemView.findViewById(R.id.tipoh);
+            money = itemView.findViewById(R.id.money);
+            check = itemView.findViewById(R.id.check);
         }
     }
 

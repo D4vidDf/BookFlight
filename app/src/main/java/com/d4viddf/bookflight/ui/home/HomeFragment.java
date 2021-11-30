@@ -24,7 +24,6 @@ import androidx.fragment.app.Fragment;
 
 import com.d4viddf.bookflight.R;
 import com.d4viddf.bookflight.clas.History;
-import com.d4viddf.bookflight.clas.Vuelos;
 import com.d4viddf.bookflight.databinding.FragmentHomeBinding;
 import com.d4viddf.bookflight.ui.HistoryActivity;
 import com.d4viddf.bookflight.ui.ResultsActivity;
@@ -71,13 +70,11 @@ public class HomeFragment extends Fragment {
 
     ScrollView scroll;
 
-    private FragmentHomeBinding binding;
-
-    @SuppressLint("ResourceType")
+    @SuppressLint({"ResourceType", "SetTextI18n"})
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        com.d4viddf.bookflight.databinding.FragmentHomeBinding binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -107,7 +104,7 @@ public class HomeFragment extends Fragment {
         if (user != null) {
             String Uname = user.getDisplayName();
 
-            name.setText(new String(getString(R.string.hello) + Uname));
+            name.setText(getString(R.string.hello) + Uname);
         }
 
         //RadioGroup
@@ -170,11 +167,9 @@ public class HomeFragment extends Fragment {
 
         //Search Flight
         search.setOnClickListener(view -> {
-            Vuelos vul;
             History history;
-            String pal = "";
             //Tipo viaje roundtrip
-            if (from.getText().toString().isEmpty() || to.getText().toString().isEmpty() || depart.getText().toString().isEmpty() || passanger.getText().toString().equalsIgnoreCase("0")){
+            if (from.getText().toString().isEmpty() || to.getText().toString().isEmpty() || Objects.requireNonNull(depart.getText()).toString().isEmpty() || passanger.getText().toString().equalsIgnoreCase("0")){
                 MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(getContext());
                 materialAlertDialogBuilder.setTitle(getString(R.string.not_search))
                         .setMessage(R.string.not_search_message)
